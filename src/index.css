@@ -126,3 +126,27 @@ select.form-field {
   padding-right: 40px;
   cursor: pointer;
 }
+
+/* ── Mobile responsive utilities ─────────────────────────────────────────── */
+
+/* Email capture: row on desktop, stacked on mobile */
+.email-capture-row { display: flex; }
+.email-capture-row input { border-right: none; }
+@media (max-width: 599px) {
+  .email-capture-row { flex-direction: column; }
+  .email-capture-row input { border-right: 1px solid rgba(26,23,20,0.3) !important; border-bottom: none; }
+  .email-capture-row .btn-primary { width: 100%; }
+}
+
+/* CTA button row: row on desktop, stacked on mobile */
+.cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+@media (max-width: 599px) {
+  .cta-row { flex-direction: column; align-items: stretch; }
+  .cta-row button, .cta-row a { width: 100%; }
+}
+
+/* Tap targets: ensure min 44px height on mobile */
+@media (max-width: 767px) {
+  button, a { min-height: 44px; }
+  .btn-primary, .btn-outline, .btn-product { min-height: 48px; font-size: 11px; }
+}

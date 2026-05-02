@@ -1,9 +1,9 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
+import { useWindowWidth } from '../hooks/useWindowWidth';
 import { MessageCircle, Calendar, BookOpen, Shield, Facebook } from 'lucide-react';
 
-// ── Feature cards ──────────────────────────────────────────────────────────
 const FEATURES = [
   { Icon: MessageCircle, title: 'Real conversations',    sub: 'No performance. No pretending.' },
   { Icon: Calendar,       title: 'Member meetups',        sub: 'In-person and virtual.' },
@@ -12,15 +12,17 @@ const FEATURES = [
 ];
 
 function FeaturesSection() {
+  const w   = useWindowWidth();
+  const mob = w < 768;
   return (
-    <section style={{ background: '#f5f0eb', padding: '80px 80px 100px', borderTop: '1px solid rgba(26,23,20,0.08)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}>
+    <section style={{ background: '#f5f0eb', padding: mob ? '48px 24px 56px' : '80px 80px 100px', borderTop: '1px solid rgba(26,23,20,0.08)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: mob ? '1fr 1fr' : 'repeat(4, 1fr)', gap: mob ? 32 : 48 }}>
         {FEATURES.map(({ Icon, title, sub }) => (
           <div key={title} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(26,23,20,0.05)', flexShrink: 0 }}>
               <Icon size={22} strokeWidth={1.4} color="#1a1714"/>
             </div>
-            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '18px', fontWeight: 600, color: '#1a1714', lineHeight: 1.2 }}>
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: mob ? '16px' : '18px', fontWeight: 600, color: '#1a1714', lineHeight: 1.2 }}>
               {title}
             </h3>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', fontWeight: 300, lineHeight: 1.8, color: '#6a6058' }}>
@@ -33,7 +35,6 @@ function FeaturesSection() {
   );
 }
 
-// ── Member testimonials ────────────────────────────────────────────────────
 const MEMBERS = [
   {
     name: 'Marcus T.',
@@ -59,37 +60,31 @@ const MEMBERS = [
 ];
 
 function MemberVoices() {
+  const w   = useWindowWidth();
+  const mob = w < 768;
+  const tab = w < 1024;
   return (
-    <section style={{ background: '#ede8e2', padding: '100px 80px' }}>
+    <section style={{ background: '#ede8e2', padding: mob ? '56px 24px' : '100px 80px' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div style={{ marginBottom: 64 }}>
+        <div style={{ marginBottom: mob ? 36 : 64 }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '0.24em', color: '#8a7d72', textTransform: 'uppercase', marginBottom: 16 }}>
             MEMBER VOICES
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 3vw, 44px)', fontWeight: 600, color: '#1a1714', lineHeight: 1.1 }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(24px, 4vw, 44px)', fontWeight: 600, color: '#1a1714', lineHeight: 1.1 }}>
             Real people. Real shift.
           </h2>
         </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : tab ? '1fr 1fr' : 'repeat(3, 1fr)', gap: mob ? 24 : 32 }}>
           {MEMBERS.map(({ name, location, quote, avatar, avatarAlt }) => (
-            <div key={name} style={{ background: '#f5f0eb', padding: '40px 36px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <div key={name} style={{ background: '#f5f0eb', padding: mob ? '28px 24px' : '40px 36px', display: 'flex', flexDirection: 'column', gap: 24 }}>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', fontWeight: 300, lineHeight: 1.9, color: '#4a4440', flexGrow: 1 }}>
                 "{quote}"
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, borderTop: '1px solid rgba(26,23,20,0.08)', paddingTop: 24 }}>
-                <img
-                  src={avatar}
-                  alt={avatarAlt}
-                  style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
-                />
+                <img src={avatar} alt={avatarAlt} style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                 <div>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 500, color: '#1a1714', letterSpacing: '0.04em' }}>
-                    {name}
-                  </p>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 300, color: '#8a7d72', marginTop: 2 }}>
-                    {location}
-                  </p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 500, color: '#1a1714', letterSpacing: '0.04em' }}>{name}</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 300, color: '#8a7d72', marginTop: 2 }}>{location}</p>
                 </div>
               </div>
             </div>
@@ -100,20 +95,21 @@ function MemberVoices() {
   );
 }
 
-// ── Join CTA (dark panel) ──────────────────────────────────────────────────
 function JoinCTA() {
+  const w   = useWindowWidth();
+  const mob = w < 768;
   return (
-    <section style={{ background: '#1e1b18', padding: '120px 80px', textAlign: 'center' }}>
+    <section style={{ background: '#1e1b18', padding: mob ? '72px 24px' : '120px 80px', textAlign: 'center' }}>
       <div style={{ maxWidth: 640, margin: '0 auto' }}>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 3.5vw, 52px)', fontWeight: 600, lineHeight: 1.1, color: '#f0ebe4', marginBottom: 24 }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: mob ? 'clamp(24px, 7vw, 40px)' : 'clamp(28px, 3.5vw, 52px)', fontWeight: 600, lineHeight: 1.1, color: '#f0ebe4', marginBottom: 24 }}>
           Membership is free.<br/>The standard is not.
         </h2>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', fontWeight: 300, lineHeight: 1.9, color: '#b5a99a', marginBottom: 48 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', fontWeight: 300, lineHeight: 1.9, color: '#b5a99a', marginBottom: 40 }}>
           Private Facebook group. Vetted members. No noise.
         </p>
         <button
           className="btn-primary"
-          style={{ padding: '18px 48px', background: '#f5f0eb', color: '#1a1714' }}
+          style={{ padding: '18px 48px', background: '#f5f0eb', color: '#1a1714', width: mob ? '100%' : 'auto' }}
           onMouseEnter={(e) => e.currentTarget.style.background = '#e8e3dd'}
           onMouseLeave={(e) => e.currentTarget.style.background = '#f5f0eb'}
         >
@@ -124,7 +120,6 @@ function JoinCTA() {
   );
 }
 
-// ── Page ───────────────────────────────────────────────────────────────────
 export default function Community() {
   return (
     <div style={{ background: '#f5f0eb', minHeight: '100vh' }}>
