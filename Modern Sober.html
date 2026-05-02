@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Søber</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: #f5f0eb; color: #1a1714; font-family: 'DM Sans', sans-serif; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f5f0eb; }
+  ::-webkit-scrollbar-thumb { background: #c8bfb5; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+// ── Tweaks Panel (inlined) ─────────────────────────────────────────────────
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = useState(defaults);
+  const setTweak = useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = useState(false);
+  const dragRef = useRef(null);
+  const offsetRef = useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(clampToViewport) : null;
+    if (ro) { ro.observe(document.documentElement); return () => ro.disconnect(); }
+    window.addEventListener('resize', clampToViewport);
+    return () => window.removeEventListener('resize', clampToViewport);
+  }, [open, clampToViewport]);
+
+  useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
+      clampToViewport();
+    };
+    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks" onMouseDown={(e) => e.stopPropagation()} onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label, children }) {
+  return (<><div className="twk-sect">{label}</div>{children}</>);
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'} role="switch" aria-checked={!!value} onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <div className="twk-row">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => { const v = typeof o === 'object' ? o.value : o; const l = typeof o === 'object' ? o.label : o; return <option key={v} value={v}>{l}</option>; })}
+      </select>
+    </div>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <div className="twk-row">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
+    </div>
+  );
+}
+
+function TweakColor({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <input type="color" className="twk-swatch" value={value} onChange={(e) => onChange(e.target.value)} />
+    </div>
+  );
+}
+
+// ── Tweak Defaults ─────────────────────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "bgColor": "#f5f0eb",
+  "accentColor": "#1a1714",
+  "headingFont": "Cormorant Garamond",
+  "heroHeadline": "Clarity is a luxury.",
+  "heroSub": "You don't have to crash to change.\nYou just have to choose better.",
+  "ctaPrimary": "SHOP NOW",
+  "ctaSecondary": "JOIN THE COMMUNITY",
+  "showSocialProof": true,
+  "productSection": "Start with one decision."
+}/*EDITMODE-END*/;
+
+// ── SVG Icons ──────────────────────────────────────────────────────────────
+const IconTarget = () => (
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round">
+    <circle cx="18" cy="18" r="14"/>
+    <circle cx="18" cy="18" r="8"/>
+    <circle cx="18" cy="18" r="2" fill="currentColor" stroke="none"/>
+    <line x1="18" y1="4" x2="18" y2="0"/>
+    <line x1="18" y1="32" x2="18" y2="36"/>
+    <line x1="4" y1="18" x2="0" y2="18"/>
+    <line x1="32" y1="18" x2="36" y2="18"/>
+  </svg>
+);
+const IconShield = () => (
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 3L5 8v10c0 7.5 5.5 13.5 13 15.5 7.5-2 13-8 13-15.5V8z"/>
+  </svg>
+);
+const IconCrown = () => (
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 26h28M6 26L4 12l8 6 6-10 6 10 8-6-2 14z"/>
+    <circle cx="4" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+    <circle cx="32" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+    <circle cx="18" cy="2" r="1.5" fill="currentColor" stroke="none"/>
+  </svg>
+);
+const IconPeople = () => (
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="10" r="5"/>
+    <circle cx="24" cy="10" r="5"/>
+    <path d="M2 30c0-6 4.5-10 10-10"/>
+    <path d="M24 20c5.5 0 10 4 10 10"/>
+    <path d="M13 30c0-5 2-8 5-9 3 1 5 4 5 9"/>
+  </svg>
+);
+const IconFacebook = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  </svg>
+);
+const IconInstagram = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+  </svg>
+);
+const IconUser = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="8" r="4"/>
+    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+  </svg>
+);
+const IconCart = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+    <line x1="3" y1="6" x2="21" y2="6"/>
+    <path d="M16 10a4 4 0 0 1-8 0"/>
+  </svg>
+);
+const IconQuote = () => (
+  <svg width="28" height="22" viewBox="0 0 28 22" fill="currentColor" opacity="0.7">
+    <path d="M0 22V13.2C0 5.6 4.4 1.4 13.2 0l1.4 2.8C10 3.8 7.8 6 7.2 9.6H12V22H0zm16 0V13.2C16 5.6 20.4 1.4 29.2 0L30.6 2.8C26 3.8 23.8 6 23.2 9.6H28V22H16z"/>
+  </svg>
+);
+
+// ── Image Placeholder ──────────────────────────────────────────────────────
+const ImgPlaceholder = ({ label, w, h, dark = false, style = {} }) => {
+  const bg = dark ? "#2a2520" : "#d9d0c5";
+  const stripe = dark ? "#302a24" : "#cec5b8";
+  const textColor = dark ? "#8a7f74" : "#7a7068";
+  const id = `stripe-${Math.random().toString(36).substr(2,6)}`;
+  return (
+    <svg
+      viewBox={`0 0 ${w} ${h}`}
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ width: "100%", height: "100%", display: "block", ...style }}
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs>
+        <pattern id={id} x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+          <rect width="12" height="12" fill={bg}/>
+          <rect width="5" height="12" fill={stripe}/>
+        </pattern>
+      </defs>
+      <rect width={w} height={h} fill={`url(#${id})`}/>
+      <text x={w/2} y={h/2 - 6} textAnchor="middle" fontFamily="monospace" fontSize="11" fill={textColor} letterSpacing="0.5">{label}</text>
+      <text x={w/2} y={h/2 + 10} textAnchor="middle" fontFamily="monospace" fontSize="10" fill={textColor} opacity="0.7">{w}×{h}</text>
+    </svg>
+  );
+};
+
+// ── Navbar ─────────────────────────────────────────────────────────────────
+const Navbar = ({ tweaks }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const navStyle = {
+    position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+    background: scrolled ? tweaks.bgColor : "transparent",
+    borderBottom: scrolled ? "1px solid rgba(26,23,20,0.08)" : "none",
+    transition: "background 0.35s, border-color 0.35s",
+    padding: "0 48px",
+  };
+
+  const linkStyle = {
+    fontFamily: "'DM Sans', sans-serif",
+    fontSize: "11px",
+    fontWeight: 500,
+    letterSpacing: "0.14em",
+    color: "#1a1714",
+    textDecoration: "none",
+    padding: "4px 0",
+    borderBottom: "1px solid transparent",
+    transition: "border-color 0.2s",
+    cursor: "pointer",
+  };
+
+  return (
+    <nav style={navStyle}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
+        <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 500, letterSpacing: "0.22em", lineHeight: 1.4, textTransform: "uppercase", cursor: "pointer" }}>
+          MODERN<br/>SØBER
+        </div>
+        <div style={{ display: "flex", gap: 40, alignItems: "center" }}>
+          {["SHOP", "OUR STORY", "COMMUNITY", "JOURNAL"].map(link => (
+            <a key={link} href="#" style={linkStyle}
+              onMouseEnter={e => e.target.style.borderBottomColor = "#1a1714"}
+              onMouseLeave={e => e.target.style.borderBottomColor = "transparent"}
+            >{link}</a>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 0, color: "#1a1714", display: "flex" }}><IconUser/></button>
+          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 0, color: "#1a1714", display: "flex" }}><IconCart/></button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+// ── Hero ───────────────────────────────────────────────────────────────────
+const Hero = ({ tweaks }) => {
+  const [hoverPrimary, setHoverPrimary] = useState(false);
+  const [hoverSecondary, setHoverSecondary] = useState(false);
+  const avatarColors = ["#c8b89a", "#b5a990", "#9e9285", "#8a7d72"];
+
+  return (
+    <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "100vh", background: tweaks.bgColor }}>
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "120px 80px 80px 80px" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.24em", color: "#1a1714", marginBottom: 28, textTransform: "uppercase" }}>
+          MODERN SØBER
+        </p>
+
+        <h1 style={{
+          fontFamily: `'${tweaks.headingFont}', serif`,
+          fontSize: "clamp(52px, 6vw, 88px)",
+          fontWeight: 600,
+          lineHeight: 1.05,
+          letterSpacing: "-0.01em",
+          color: "#1a1714",
+          marginBottom: 28,
+          whiteSpace: "pre-line",
+        }}>
+          {tweaks.heroHeadline}
+        </h1>
+
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "15px", fontWeight: 300, lineHeight: 1.75, color: "#4a4440", marginBottom: 44, whiteSpace: "pre-line", maxWidth: 360 }}>
+          {tweaks.heroSub}
+        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 280, marginBottom: 44 }}>
+          <button
+            style={{ background: hoverPrimary ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s" }}
+            onMouseEnter={() => setHoverPrimary(true)}
+            onMouseLeave={() => setHoverPrimary(false)}
+          >
+            {tweaks.ctaPrimary}
+          </button>
+
+          <button
+            style={{ background: hoverSecondary ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "15px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}
+            onMouseEnter={() => setHoverSecondary(true)}
+            onMouseLeave={() => setHoverSecondary(false)}
+          >
+            <IconFacebook/> {tweaks.ctaSecondary}
+          </button>
+        </div>
+
+        {tweaks.showSocialProof && (
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex" }}>
+              {avatarColors.map((color, i) => (
+                <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: color, border: "2px solid #f5f0eb", marginLeft: i > 0 ? -10 : 0, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg viewBox="0 0 32 32" width="32" height="32">
+                    <rect width="32" height="32" fill={color}/>
+                    <circle cx="16" cy="12" r="6" fill={`${color}88`}/>
+                    <ellipse cx="16" cy="28" rx="10" ry="7" fill={`${color}88`}/>
+                  </svg>
+                </div>
+              ))}
+            </div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#6a6058", lineHeight: 1.5 }}>
+              Thousands are already<br/>choosing clarity.
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div style={{ position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0 }}>
+          <ImgPlaceholder label="hero portrait — well-dressed man, dark suit" w={640} h={900} dark/>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Value Props ────────────────────────────────────────────────────────────
+const ValueProps = ({ tweaks }) => {
+  const props = [
+    { Icon: IconTarget, title: "CLARITY OVER CHAOS", body: "We choose focus.\nWe protect our energy." },
+    { Icon: IconShield, title: "DISCIPLINE IS FREEDOM", body: "No shortcuts.\nOnly standards." },
+    { Icon: IconCrown, title: "ELEVATE DAILY", body: "In mindset.\nIn habits.\nIn life." },
+    { Icon: IconPeople, title: "COMMUNITY OF CHOICE", body: "We surround ourselves with people who move forward." },
+  ];
+
+  return (
+    <section style={{ background: tweaks.bgColor, borderTop: "1px solid rgba(26,23,20,0.1)", borderBottom: "1px solid rgba(26,23,20,0.1)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+        {props.map(({ Icon, title, body }, i) => (
+          <div key={i} style={{
+            padding: "60px 48px",
+            borderRight: i < 3 ? "1px solid rgba(26,23,20,0.1)" : "none",
+            display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 20
+          }}>
+            <div style={{ color: "#1a1714", opacity: 0.7 }}><Icon/></div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.2em", color: "#1a1714", textTransform: "uppercase" }}>{title}</p>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 300, lineHeight: 1.8, color: "#6a6058", whiteSpace: "pre-line" }}>{body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+// ── Story Section ──────────────────────────────────────────────────────────
+const Story = ({ tweaks }) => (
+  <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: 520 }}>
+    <div style={{ background: "#1e1b18", padding: "80px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div style={{ color: "#c8b89a", marginBottom: 28 }}><IconQuote/></div>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
+        I lived in environments where excess was normal.<br/>
+        Where success and escape looked the same.
+      </p>
+      <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "20px", fontWeight: 600, color: "#f0ebe4", marginBottom: 24, lineHeight: 1.4 }}>
+        Everything worked — until it didn't.
+      </p>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
+        Clarity became the edge.<br/>
+        Discipline became the advantage.
+      </p>
+      <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "20px", fontWeight: 600, color: "#f0ebe4", marginBottom: 36, lineHeight: 1.4 }}>
+        This isn't about restriction.<br/>It's about control.
+      </p>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>
+        —<br/>Founder
+      </p>
+    </div>
+    <div style={{ overflow: "hidden", position: "relative" }}>
+      <ImgPlaceholder label="group lifestyle — rooftop, city background, brand apparel" w={640} h={520}/>
+    </div>
+  </section>
+);
+
+// ── Products ───────────────────────────────────────────────────────────────
+const Products = ({ tweaks }) => {
+  const products = [
+    { name: "PREMIUM HOODIE", desc: "Built for clarity.", img: "oversized black hoodie, editorial" },
+    { name: "ESSENTIAL TEE", desc: "Daily standard.", img: "minimal tee, model wearing brand" },
+    { name: "MINIMAL CAP", desc: "Clean. Intentional.", img: "structured cap, MS embroidery" },
+  ];
+  const [hovered, setHovered] = useState(null);
+
+  return (
+    <section style={{ background: tweaks.bgColor, padding: "100px 80px" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <h2 style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "clamp(36px, 4vw, 56px)", fontWeight: 600, color: "#1a1714", marginBottom: 12 }}>
+            {tweaks.productSection}
+          </h2>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", color: "#8a7d72", textTransform: "uppercase" }}>
+            GEAR FOR YOUR STANDARD.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
+          {products.map(({ name, desc, img }, i) => (
+            <div key={i} style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              <div style={{ aspectRatio: "4/5", overflow: "hidden", marginBottom: 20 }}>
+                <ImgPlaceholder label={img} w={400} h={500} dark/>
+              </div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.2em", color: "#1a1714", marginBottom: 4, textTransform: "uppercase" }}>{name}</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 300, color: "#8a7d72", marginBottom: 16 }}>{desc}</p>
+              <button
+                style={{ background: hovered === i ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "14px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.22em", cursor: "pointer", transition: "background 0.2s", width: "100%" }}
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                SHOP
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Community ──────────────────────────────────────────────────────────────
+const Community = ({ tweaks }) => {
+  const [hoverBtn, setHoverBtn] = useState(false);
+  const imgLabels = [
+    "couple with coffee, casual brand apparel",
+    "back view, MODERN SØBER hoodie, street",
+    "three friends outdoors, laughing",
+    "group seated, relaxed, caps + hoodies",
+  ];
+
+  return (
+    <section style={{ background: "#ede8e2", display: "grid", gridTemplateColumns: "1fr 1.4fr" }}>
+      <div style={{ padding: "80px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <h2 style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "clamp(32px, 3.5vw, 52px)", fontWeight: 600, lineHeight: 1.05, color: "#1a1714", marginBottom: 28, textTransform: "uppercase", letterSpacing: "-0.01em" }}>
+          THIS IS BIGGER<br/>THAN PRODUCT.
+        </h2>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#4a4440", marginBottom: 36, maxWidth: 340 }}>
+          Modern Søber is a shift.<br/>
+          People choosing clarity, discipline,<br/>
+          and control — together.<br/>
+          We don't do this alone.
+        </p>
+        <button
+          style={{ background: hoverBtn ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", gap: 10, maxWidth: 260, marginBottom: 24 }}
+          onMouseEnter={() => setHoverBtn(true)}
+          onMouseLeave={() => setHoverBtn(false)}
+        >
+          <IconFacebook/> JOIN THE COMMUNITY
+        </button>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, lineHeight: 2, color: "#8a7d72" }}>
+          Private Facebook group. Real people. Real stories. No judgment.
+        </p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", gap: 3 }}>
+        {imgLabels.map((label, i) => (
+          <div key={i} style={{ overflow: "hidden", position: "relative", aspectRatio: "1/1" }}>
+            {i === 1 && (
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none" }}>
+                <div style={{ textAlign: "center" }}>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 500, letterSpacing: "0.25em", color: "#f5f0eb", textShadow: "0 1px 8px rgba(0,0,0,0.5)", lineHeight: 1.6 }}>MODERN<br/>SØBER</p>
+                </div>
+              </div>
+            )}
+            <ImgPlaceholder label={label} w={400} h={400} dark/>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+// ── Final CTA ──────────────────────────────────────────────────────────────
+const FinalCTA = ({ tweaks }) => {
+  const [h1, setH1] = useState(false);
+  const [h2, setH2] = useState(false);
+
+  return (
+    <section style={{ background: tweaks.bgColor, padding: "120px 80px", textAlign: "center" }}>
+      <h2 style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "clamp(36px, 4.5vw, 64px)", fontWeight: 600, lineHeight: 1.1, color: "#1a1714", marginBottom: 56, letterSpacing: "-0.01em" }}>
+        Clarity is available.<br/>
+        Most people just don't choose it.
+      </h2>
+      <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
+        <button
+          style={{ background: h1 ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "18px 48px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s" }}
+          onMouseEnter={() => setH1(true)} onMouseLeave={() => setH1(false)}
+        >SHOP NOW</button>
+        <button
+          style={{ background: h2 ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "17px 40px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", gap: 10 }}
+          onMouseEnter={() => setH2(true)} onMouseLeave={() => setH2(false)}
+        ><IconFacebook/> JOIN THE MOVEMENT</button>
+      </div>
+    </section>
+  );
+};
+
+// ── Footer ─────────────────────────────────────────────────────────────────
+const Footer = () => (
+  <footer style={{ background: "#f5f0eb", borderTop: "1px solid rgba(26,23,20,0.1)", padding: "48px 80px" }}>
+    <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", alignItems: "center" }}>
+      <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.22em", lineHeight: 1.5, textTransform: "uppercase" }}>
+        MODERN<br/>SØBER
+      </div>
+      <div style={{ display: "flex", gap: 36, justifyContent: "center" }}>
+        {["SHOP", "OUR STORY", "COMMUNITY", "JOURNAL"].map(link => (
+          <a key={link} href="#" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.15em", color: "#6a6058", textDecoration: "none" }}
+            onMouseEnter={e => e.target.style.color = "#1a1714"}
+            onMouseLeave={e => e.target.style.color = "#6a6058"}
+          >{link}</a>
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: 20, justifyContent: "flex-end", alignItems: "center" }}>
+        <a href="#" style={{ color: "#1a1714", display: "flex" }}><IconFacebook/></a>
+        <a href="#" style={{ color: "#1a1714", display: "flex" }}><IconInstagram/></a>
+      </div>
+    </div>
+  </footer>
+);
+
+// ── App ────────────────────────────────────────────────────────────────────
+const App = () => {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  return (
+    <div style={{ background: tweaks.bgColor, minHeight: "100vh" }}>
+      <Navbar tweaks={tweaks}/>
+      <Hero tweaks={tweaks}/>
+      <ValueProps tweaks={tweaks}/>
+      <Story tweaks={tweaks}/>
+      <Products tweaks={tweaks}/>
+      <Community tweaks={tweaks}/>
+      <FinalCTA tweaks={tweaks}/>
+      <Footer/>
+
+      <TweaksPanel>
+        <TweakSection label="Brand">
+          <TweakColor label="Background" id="bgColor" value={tweaks.bgColor} onChange={v => setTweak("bgColor", v)}/>
+          <TweakColor label="Accent / Buttons" id="accentColor" value={tweaks.accentColor} onChange={v => setTweak("accentColor", v)}/>
+          <TweakSelect label="Heading Font" id="headingFont" value={tweaks.headingFont}
+            options={["Cormorant Garamond","Playfair Display","EB Garamond","Libre Baskerville"]}
+            onChange={v => setTweak("headingFont", v)}/>
+        </TweakSection>
+        <TweakSection label="Hero Copy">
+          <TweakText label="Headline" id="heroHeadline" value={tweaks.heroHeadline} onChange={v => setTweak("heroHeadline", v)}/>
+          <TweakText label="Subtext" id="heroSub" value={tweaks.heroSub} onChange={v => setTweak("heroSub", v)}/>
+          <TweakText label="Primary CTA" id="ctaPrimary" value={tweaks.ctaPrimary} onChange={v => setTweak("ctaPrimary", v)}/>
+          <TweakText label="Secondary CTA" id="ctaSecondary" value={tweaks.ctaSecondary} onChange={v => setTweak("ctaSecondary", v)}/>
+        </TweakSection>
+        <TweakSection label="Sections">
+          <TweakToggle label="Show Social Proof" id="showSocialProof" value={tweaks.showSocialProof} onChange={v => setTweak("showSocialProof", v)}/>
+          <TweakText label="Product Headline" id="productSection" value={tweaks.productSection} onChange={v => setTweak("productSection", v)}/>
+        </TweakSection>
+      </TweaksPanel>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

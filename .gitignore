@@ -1,0 +1,6 @@
+node_modules/
+dist/
+modern-sober-extracted/
+Modern Sober.zip
+.DS_Store
+*.local

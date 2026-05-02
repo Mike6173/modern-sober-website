@@ -1,0 +1,128 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: #f5f0eb; color: #1a1714; font-family: 'DM Sans', sans-serif; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f5f0eb; }
+::-webkit-scrollbar-thumb { background: #c8bfb5; }
+
+/* ── Brand tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --bg-cream: #f5f0eb;
+  --bg-cream-warm: #ede8e2;
+  --ink-black: #1a1714;
+  --ink-black-hover: #2e2a26;
+  --dark-panel: #1e1b18;
+  --muted-1: #4a4440;
+  --muted-2: #6a6058;
+  --muted-3: #8a7d72;
+  --muted-4: #b5a99a;
+  --accent-warm: #c8b89a;
+  --font-serif: 'Playfair Display', serif;
+  --font-serif-alt: 'Cormorant Garamond', serif;
+  --font-sans: 'DM Sans', sans-serif;
+}
+
+/* ── Shared button classes (used by new pages) ───────────────────────────── */
+.btn-primary {
+  background: var(--ink-black);
+  color: var(--bg-cream);
+  border: none;
+  padding: 16px 32px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.btn-primary:hover { background: var(--ink-black-hover); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink-black);
+  border: 1.5px solid var(--ink-black);
+  padding: 15px 32px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.btn-outline:hover { background: rgba(26, 23, 20, 0.05); }
+
+/* ── Product card image hover ────────────────────────────────────────────── */
+.product-card { display: flex; flex-direction: column; }
+.product-img-wrap { overflow: hidden; }
+.product-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.product-card:hover .product-img-wrap img { transform: scale(1.02); }
+.product-card:hover .btn-product { background: var(--ink-black-hover); }
+
+.btn-product {
+  background: var(--ink-black);
+  color: var(--bg-cream);
+  border: none;
+  padding: 14px 0;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+/* ── Journal card image hover ────────────────────────────────────────────── */
+.journal-card { display: flex; flex-direction: column; cursor: pointer; }
+.journal-card-img { overflow: hidden; }
+.journal-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.journal-card:hover .journal-card-img img { transform: scale(1.02); }
+
+/* ── Form fields ─────────────────────────────────────────────────────────── */
+.form-field {
+  width: 100%;
+  padding: 14px 16px;
+  background: transparent;
+  border: 1px solid rgba(26, 23, 20, 0.2);
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-black);
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form-field:focus { border-color: var(--ink-black); }
+.form-field::placeholder { color: var(--muted-3); }
+
+select.form-field {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%231a1714' opacity='.5' d='M0 0h10L5 6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
