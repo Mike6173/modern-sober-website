@@ -102,27 +102,47 @@ const Hero = ({ tweaks }) => {
           </filter>
         </defs>
       </svg>
-      {/* Full-bleed background image */}
-      <img
-        src={heroImg}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: "absolute", inset: 0, width: "100%", height: "100%",
-          objectFit: "cover",
-          objectPosition: mob ? "70% center" : "right center",
-          filter: "brightness(0.65) contrast(1.08) saturate(1.05) url(#sharpen)",
-          imageRendering: "high-quality",
-          transform: mob ? "none" : "translateX(12%)",
-        }}
-      />
-      {/* Gradient overlay */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: mob
-          ? "linear-gradient(to bottom, rgba(245,240,235,0.92) 0%, rgba(245,240,235,0.85) 55%, rgba(245,240,235,0.5) 80%, transparent 100%)"
-          : "linear-gradient(to right, #f5f0eb 22%, rgba(245,240,235,0.75) 34%, rgba(245,240,235,0.15) 50%, transparent 62%)",
-      }} />
+
+      {/* Mobile background — frosted yacht image */}
+      {mob && (
+        <img
+          src="/images/products/hoodie/hoodie-03-yacht-sitting.jpg"
+          alt=""
+          aria-hidden="true"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+        />
+      )}
+      {mob && (
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "rgba(245,240,235,0.52)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+        }} />
+      )}
+
+      {/* Desktop background — original hero image */}
+      {!mob && (
+        <>
+          <img
+            src={heroImg}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute", inset: 0, width: "100%", height: "100%",
+              objectFit: "cover", objectPosition: "right center",
+              filter: "brightness(0.65) contrast(1.08) saturate(1.05) url(#sharpen)",
+              imageRendering: "high-quality",
+              transform: "translateX(12%)",
+            }}
+          />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to right, #f5f0eb 22%, rgba(245,240,235,0.75) 34%, rgba(245,240,235,0.15) 50%, transparent 62%)",
+          }} />
+        </>
+      )}
+
       {/* Text content */}
       <div style={{
         position: "relative", zIndex: 1,
@@ -354,16 +374,21 @@ const FinalCTA = ({ tweaks }) => {
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function Home() {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const w   = useWindowWidth();
+  const mob = w < 768;
 
   return (
     <div style={{ background: tweaks.bgColor, minHeight: "100vh" }}>
       <Navbar bgColor={tweaks.bgColor}/>
-      <Hero tweaks={tweaks}/>
-      <ValueProps tweaks={tweaks}/>
-      <Story tweaks={tweaks}/>
-      <Products tweaks={tweaks}/>
-      <HomeCommunity tweaks={tweaks}/>
-      <FinalCTA tweaks={tweaks}/>
+      {/* Flex column allows CSS order reordering on mobile */}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ order: 1 }}><Hero tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 3 : 2 }}><ValueProps tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 4 : 3 }}><Story tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 2 : 4 }}><Products tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 5 : 5 }}><HomeCommunity tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 6 : 6 }}><FinalCTA tweaks={tweaks}/></div>
+      </div>
       <Footer/>
 
       <TweaksPanel>

@@ -34,34 +34,33 @@ export const products = [
     ],
   },
   {
-    id: 'cap',
-    title: 'Minimal Cap',
-    price: '$60',
-    tagline: 'Clean. Intentional.',
+    id: 'cropsweatshirt',
+    title: 'Crop Sweatshirt',
+    price: '$80',
+    tagline: 'Soft structure. Elevated ease.',
     leadImage: {
-      src: '/images/products/cap/cap-01-spec.jpg',
-      alt: 'Minimal Cap spec sheet — Built for Everyday. Made to Last.',
+      src: '/images/products/cropsweatshirt/cropsweatshirt-01-spec.jpg',
+      alt: 'Crop Sweatshirt spec sheet — woman in blush crop hoodie with feature icons',
     },
     description: {
-      headline: 'Clean. Structured. Everyday.',
+      headline: 'Soft structure. Elevated ease.',
       body: [
-        'Premium cotton twill with a soft, breathable feel.',
-        'Finished with minimal embroidered MODERN SØBER branding.',
-        'Designed to elevate the everyday.',
+        'A cropped hoodie that holds its shape and moves with you — clean lines, soft structure, no excess. Designed to sit exactly where it should, creating a silhouette that feels effortless but looks intentional.',
+        'Front stays minimal. The back says everything — Elevated Living.',
       ],
       brandLine: null,
       detailsTitle: 'Details',
       details: [
-        '100% cotton twill',
-        'Adjustable fit',
-        'Structured front',
-        'Embroidered logo',
+        'Soft, lightweight feel',
+        'Structured crop, flattering fit',
+        'Easy to wear, easy to style',
+        'Minimal front, statement back',
       ],
-      closing: 'Clarity is the new luxury.',
+      closing: 'Put it on. It speaks for you.',
     },
     galleryImages: [
-      { src: '/images/products/cap/cap-02-tennis.jpg', alt: 'Tennis player on court wearing cream Modern Søber cap, picking up tennis ball' },
-      { src: '/images/products/cap/cap-03-pair.jpg', alt: 'Black and tan Modern Søber caps side by side on concrete' },
+      { src: '/images/products/cropsweatshirt/cropsweatshirt-02-yacht-front.jpg', alt: 'Woman on yacht wearing cream crop hoodie, MODERN SØBER on chest, ocean and mountains behind her' },
+      { src: '/images/products/cropsweatshirt/cropsweatshirt-03-yacht-back.jpg', alt: 'Woman on yacht, back view, cream crop hoodie showing ELEVATED LIVING / MODERN SØBER' },
     ],
   },
   {
@@ -92,6 +91,37 @@ export const products = [
     galleryImages: [
       { src: '/images/products/tee/tee-02-scooter.jpg', alt: 'Two guys with helmets on Vespas in Tuscany, one in black tee one in cream' },
       { src: '/images/products/tee/tee-03-tuscany.jpg', alt: 'Two guys in Modern Søber tees standing by Vespas, Tuscany hills in background' },
+    ],
+  },
+  {
+    id: 'cap',
+    title: 'Minimal Cap',
+    price: '$60',
+    tagline: 'Clean. Intentional.',
+    leadImage: {
+      src: '/images/products/cap/cap-01-spec.jpg',
+      alt: 'Minimal Cap spec sheet — Built for Everyday. Made to Last.',
+    },
+    description: {
+      headline: 'Clean. Structured. Everyday.',
+      body: [
+        'Premium cotton twill with a soft, breathable feel.',
+        'Finished with minimal embroidered MODERN SØBER branding.',
+        'Designed to elevate the everyday.',
+      ],
+      brandLine: null,
+      detailsTitle: 'Details',
+      details: [
+        '100% cotton twill',
+        'Adjustable fit',
+        'Structured front',
+        'Embroidered logo',
+      ],
+      closing: 'Clarity is the new luxury.',
+    },
+    galleryImages: [
+      { src: '/images/products/cap/cap-02-tennis.jpg', alt: 'Tennis player on court wearing cream Modern Søber cap, picking up tennis ball' },
+      { src: '/images/products/cap/cap-03-pair.jpg', alt: 'Black and tan Modern Søber caps side by side on concrete' },
     ],
   },
 ];
