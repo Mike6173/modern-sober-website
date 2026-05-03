@@ -46,29 +46,54 @@ function LongForm() {
   };
   return (
     <section style={{ padding: mob ? '56px 24px' : '100px 80px', background: '#f5f0eb' }}>
-      <div style={{ maxWidth: 640, margin: '0 auto' }}>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '0.2em', color: '#8a7d72', textTransform: 'uppercase', marginBottom: 40 }}>
-          THE REASON
-        </p>
-        <p style={bodyStyle}>
-          For years, I lived inside rooms where excess was the ambient noise. Finance. Hospitality. High-volume social environments. The kind of world where drinking wasn't a habit — it was the architecture of every evening, every deal, every relationship. I wasn't broken. I was running. I just didn't realize it until I stopped.
-        </p>
-        <p style={bodyStyle}>
-          The year I got serious about clarity was the year I realized I had been performing my life more than living it. Sharpness was available to me at 6am. Presence was available. Focus was available. I'd just been choosing something else every night and wondering why mornings felt like starting from zero.
-        </p>
-        <p style={bodyStyle}>
-          I didn't want a sobriety brand. I didn't identify with the language of recovery or restriction. What I wanted — what I built — was something for the people who are choosing better not because they hit bottom, but because they looked up and saw how much higher they could go.
-        </p>
-        <div style={{ width: 40, height: 1, background: 'rgba(26,23,20,0.2)', margin: '56px 0' }}/>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '0.2em', color: '#8a7d72', textTransform: 'uppercase', marginBottom: 40 }}>
-          WHAT WE BELIEVE
-        </p>
-        <p style={bodyStyle}>
-          Clarity is not a personality type. It's a practice. It's the daily decision to protect your energy, your attention, and your standards — before anyone else asks you to. Discipline isn't punishment. It's what you build when you respect your own time enough to refuse what dilutes it.
-        </p>
-        <p style={bodyStyle}>
-          Modern Søber exists for the people who have already made the decision — or who are standing at the edge of it. The gear is a reminder. The community is proof. You are not unusual for wanting more from yourself. You are early.
-        </p>
+      <div style={{
+        maxWidth: 1280, margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: mob ? '1fr' : '58% 38%',
+        gap: mob ? 48 : 64,
+        alignItems: 'center',
+      }}>
+        {/* Text */}
+        <div>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '0.2em', color: '#8a7d72', textTransform: 'uppercase', marginBottom: 40 }}>
+            THE REASON
+          </p>
+          <p style={bodyStyle}>
+            For years, I lived inside rooms where excess was the ambient noise. Finance. Hospitality. High-volume social environments. The kind of world where drinking wasn't a habit — it was the architecture of every evening, every deal, every relationship. I wasn't broken. I was running. I just didn't realize it until I stopped.
+          </p>
+          <p style={bodyStyle}>
+            The year I got serious about clarity was the year I realized I had been performing my life more than living it. Sharpness was available to me at 6am. Presence was available. Focus was available. I'd just been choosing something else every night and wondering why mornings felt like starting from zero.
+          </p>
+          <p style={bodyStyle}>
+            I didn't want a sobriety brand. I didn't identify with the language of recovery or restriction. What I wanted — what I built — was something for the people who are choosing better not because they hit bottom, but because they looked up and saw how much higher they could go.
+          </p>
+          <div style={{ width: 40, height: 1, background: 'rgba(26,23,20,0.2)', margin: '56px 0' }}/>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 500, letterSpacing: '0.2em', color: '#8a7d72', textTransform: 'uppercase', marginBottom: 40 }}>
+            WHAT WE BELIEVE
+          </p>
+          <p style={bodyStyle}>
+            Clarity is not a personality type. It's a practice. It's the daily decision to protect your energy, your attention, and your standards — before anyone else asks you to. Discipline isn't punishment. It's what you build when you respect your own time enough to refuse what dilutes it.
+          </p>
+          <p style={bodyStyle}>
+            Modern Søber exists for the people who have already made the decision — or who are standing at the edge of it. The gear is a reminder. The community is proof. You are not unusual for wanting more from yourself. You are early.
+          </p>
+        </div>
+        {/* Image */}
+        <div style={{ width: '100%' }}>
+          <img
+            src="/images/founders/founders-rooftop.jpg"
+            alt="Modern Søber founders on a rooftop overlooking the city"
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block',
+              borderRadius: 16,
+              boxShadow: '0 8px 40px rgba(26,23,20,0.10)',
+              objectFit: 'cover',
+            }}
+            loading="lazy"
+          />
+        </div>
       </div>
     </section>
   );

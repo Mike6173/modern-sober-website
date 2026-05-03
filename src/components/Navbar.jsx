@@ -74,10 +74,12 @@ export default function Navbar({ bgColor = '#f5f0eb' }) {
           height: navH,
         }}>
           {/* Logo */}
-          <NavLink to="/" style={{ textDecoration: 'none', color: '#1a1714' }} onClick={() => setMenuOpen(false)}>
-            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', fontWeight: 500, letterSpacing: '0.22em', lineHeight: 1.4, textTransform: 'uppercase' }}>
-              MODERN<br/>SØBER
-            </div>
+          <NavLink to="/" style={{ textDecoration: 'none' }} onClick={() => setMenuOpen(false)}>
+            <img
+              src="/images/logo/ms-logo-light.png"
+              alt="Modern Søber"
+              style={{ height: mobile ? 28 : 36, width: 'auto', display: 'block' }}
+            />
           </NavLink>
 
           {mobile ? (

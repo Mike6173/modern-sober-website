@@ -131,7 +131,7 @@ const Hero = ({ tweaks }) => {
         padding: mob ? "90px 24px 60px" : "120px 80px 80px 80px",
         maxWidth: mob ? "100%" : 560,
       }}>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.24em", color: "#1a1714", marginBottom: 24, textTransform: "uppercase" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "clamp(28px, 7vw, 36px)" : "clamp(32px, 3.5vw, 48px)", fontWeight: 500, letterSpacing: "0.24em", color: "#1a1714", marginBottom: 24, textTransform: "uppercase" }}>
           MODERN SØBER
         </p>
         <h1 style={{
@@ -205,7 +205,7 @@ const ValueProps = ({ tweaks }) => {
             display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 16,
           }}>
             <div style={{ color: "#1a1714", opacity: 0.7 }}><Icon/></div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.2em", color: "#1a1714", textTransform: "uppercase" }}>{title}</p>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 300, letterSpacing: "0.28em", color: "#1a1714", textTransform: "uppercase" }}>{title}</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 300, lineHeight: 1.8, color: "#6a6058", whiteSpace: "pre-line" }}>{body}</p>
           </div>
         ))}
@@ -237,7 +237,12 @@ const Story = ({ tweaks }) => {
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>—<br/>Founder</p>
       </div>
       <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
-        <ImgPlaceholder label="group lifestyle — rooftop, city background, brand apparel" w={640} h={520}/>
+        <img
+          src="/images/founders/founders-rooftop.jpg"
+          alt="Modern Søber founders on a rooftop overlooking the city"
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          loading="lazy"
+        />
       </div>
     </section>
   );
