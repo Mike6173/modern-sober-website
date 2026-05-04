@@ -50,24 +50,18 @@ export default function ShopProductCard({ product }) {
             onClick={(e) => { e.stopPropagation(); setActive(i); }}
             title={c.name}
             style={{
-              width: 28, height: 28,
-              background: 'transparent',
+              width: 18, height: 18,
+              borderRadius: '50%',
+              background: c.hex,
               border: 'none',
               cursor: 'pointer', padding: 0,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <span style={{
-              display: 'block', width: 16, height: 16, borderRadius: '50%',
-              background: c.hex,
               flexShrink: 0,
               outline: i === activeColor ? '2px solid #1a1714' : '2px solid transparent',
               outlineOffset: 2,
               boxShadow: 'inset 0 0 0 1px rgba(26,23,20,0.15)',
               transition: 'outline-color 0.15s',
-            }} />
-          </button>
+            }}
+          />
         ))}
         {product.colors.length > 3 && (
           <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: '#8a7d72', marginLeft: 2 }}>
