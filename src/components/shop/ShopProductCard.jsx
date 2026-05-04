@@ -45,16 +45,18 @@ export default function ShopProductCard({ product }) {
       {/* Color swatches — stop propagation so clicking a swatch doesn't navigate */}
       <div style={{ display: 'flex', gap: 4, marginBottom: 8, alignItems: 'center' }}>
         {product.colors.map((c, i) => (
-          <button
+          <div
             key={i}
+            role="button"
+            tabIndex={0}
             onClick={(e) => { e.stopPropagation(); setActive(i); }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); setActive(i); } }}
             title={c.name}
             style={{
               width: 18, height: 18,
               borderRadius: '50%',
               background: c.hex,
-              border: 'none',
-              cursor: 'pointer', padding: 0,
+              cursor: 'pointer',
               flexShrink: 0,
               outline: i === activeColor ? '2px solid #1a1714' : '2px solid transparent',
               outlineOffset: 2,
