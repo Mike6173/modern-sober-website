@@ -117,19 +117,22 @@ export default function ProductDetailPage() {
               </p>
               <div style={{ display: 'flex', gap: 10 }}>
                 {product.colors.map((c, i) => (
-                  <button
+                  <div
                     key={i}
+                    role="button"
+                    tabIndex={0}
                     onClick={() => setActiveColor(i)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveColor(i); }}
                     title={c.name}
                     style={{
                       width: 28, height: 28, borderRadius: '50%',
                       background: c.hex,
-                      border: 'none',
                       outline: i === activeColor ? '2px solid #1a1714' : '2px solid transparent',
                       outlineOffset: 3,
-                      cursor: 'pointer', padding: 0,
+                      cursor: 'pointer',
                       transition: 'outline-color 0.15s',
                       boxShadow: 'inset 0 0 0 1px rgba(26,23,20,0.12)',
+                      flexShrink: 0,
                     }}
                   />
                 ))}
