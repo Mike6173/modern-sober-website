@@ -117,8 +117,8 @@ const Hero = ({ tweaks }) => {
         <div style={{
           position: "absolute", inset: 0,
           background: "rgba(245,240,235,0.52)",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
+          backdropFilter: "blur(2px)",
+          WebkitBackdropFilter: "blur(2px)",
         }} />
       )}
 
