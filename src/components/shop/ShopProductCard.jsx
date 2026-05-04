@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function ShopProductCard({ product }) {
-  const [hovered, setHovered]    = useState(false);
-  const [activeColor, setActive] = useState(0);
+  const [hovered, setHovered] = useState(false);
 
   const to = product.slug ? `/shop/product/${product.slug}` : '#';
 
@@ -42,35 +41,6 @@ export default function ShopProductCard({ product }) {
         </div>
       </Link>
 
-      {/* Color swatches — stop propagation so clicking a swatch doesn't navigate */}
-      <div style={{ display: 'flex', gap: 4, marginBottom: 8, alignItems: 'center' }}>
-        {product.colors.map((c, i) => (
-          <div
-            key={i}
-            role="button"
-            tabIndex={0}
-            onClick={(e) => { e.stopPropagation(); setActive(i); }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); setActive(i); } }}
-            title={c.name}
-            style={{
-              width: 18, height: 18,
-              borderRadius: '50%',
-              background: c.hex,
-              cursor: 'pointer',
-              flexShrink: 0,
-              outline: i === activeColor ? '2px solid #1a1714' : '2px solid transparent',
-              outlineOffset: 2,
-              boxShadow: 'inset 0 0 0 1px rgba(26,23,20,0.15)',
-              transition: 'outline-color 0.15s',
-            }}
-          />
-        ))}
-        {product.colors.length > 3 && (
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: '#8a7d72', marginLeft: 2 }}>
-            +{product.colors.length - 3}
-          </span>
-        )}
-      </div>
 
       {/* Name + price — link to PDP */}
       <Link to={to} style={{ textDecoration: 'none' }}>

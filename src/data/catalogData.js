@@ -22,7 +22,7 @@ export const CATALOG_PRODUCTS = [
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     fit: 'relaxed',
     trending: true,
-    img: '/images/products/hoodie/hoodie-01-spec.jpg',
+    img: '/images/products/hoodie/hoodie-03-yacht-sitting.jpg',
     galleryImages: [
       { src: '/images/products/hoodie/hoodie-01-spec.jpg',         alt: 'Essential Hoodie spec — black hoodie with CLEAR > NUMB branding' },
       { src: '/images/products/hoodie/hoodie-02-yacht-walking.jpg', alt: 'Cream hoodie on man walking on yacht deck, back view' },
@@ -84,7 +84,7 @@ export const CATALOG_PRODUCTS = [
     fit: 'crop',
     trending: true,
     new: true,
-    img: '/images/products/cropsweatshirt/cropsweatshirt-01-spec.jpg',
+    img: '/images/products/cropsweatshirt/cropsweatshirt-02-yacht-front.jpg',
     galleryImages: [
       { src: '/images/products/cropsweatshirt/cropsweatshirt-01-spec.jpg', alt: 'Cropped Hoodie spec sheet — lightweight crop hoodie, feature details' },
       { src: '/images/products/cropsweatshirt/cropsweatshirt-02-yacht-front.jpg', alt: 'Woman on yacht wearing cream crop hoodie, MODERN SØBER on chest, ocean and mountains behind her' },
@@ -123,7 +123,7 @@ export const CATALOG_PRODUCTS = [
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     fit: 'relaxed',
     trending: true,
-    img: '/images/products/tee/tee-01-spec.jpg',
+    img: '/images/products/tee/tee-02-scooter.jpg',
     galleryImages: [
       { src: '/images/products/tee/tee-01-spec.jpg',      alt: 'Heavy Tee spec — man in cream tee' },
       { src: '/images/products/tee/tee-02-scooter.jpg',   alt: 'Two guys on Vespas in Tuscany wearing Modern Søber tees' },
@@ -179,7 +179,7 @@ export const CATALOG_PRODUCTS = [
     sizes: ['ONE SIZE'],
     fit: 'adjustable',
     trending: true,
-    img: '/images/products/cap/cap-01-spec.jpg',
+    img: '/images/products/cap/cap-03-pair.jpg',
     galleryImages: [
       { src: '/images/products/cap/cap-01-spec.jpg',   alt: 'Minimal Cap spec sheet — Built for Everyday. Made to Last.' },
       { src: '/images/products/cap/black-cap-1.jpg', alt: 'Black Minimal Cap — model lifestyle shot' },
