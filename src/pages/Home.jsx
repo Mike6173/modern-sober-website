@@ -281,10 +281,10 @@ const Story = ({ tweaks }) => {
 // ── Products ───────────────────────────────────────────────────────────────
 const Products = ({ tweaks }) => {
   const products = [
-    { name: "ESSENTIAL HOODIE", desc: "Built for clarity.",   realImg: "/images/products/cropsweatshirt/black-hoodie-1.jpg",  link: "/shop/product/essential-hoodie" },
-    { name: "CROPPED HOODIE",   desc: "Relaxed. Elevated.",   realImg: "/images/products/cropsweatshirt/blush-hoodie-1.jpg",  link: "/shop/product/cropped-hoodie" },
-    { name: "ESSENTIAL TEE",    desc: "Daily standard.",      realImg: "/images/products/tee/tee-02-scooter.jpg",             link: "/shop/tees" },
-    { name: "MINIMAL CAP",      desc: "Clean. Intentional.",  realImg: "/images/products/cap/cap-03-pair.jpg",               link: "/shop/caps" },
+    { name: "ESSENTIAL HOODIE", desc: "Built for clarity.",   realImg: "/images/products/cropsweatshirt/black-hoodie-3.jpg",         link: "/shop/product/essential-hoodie" },
+    { name: "CROPPED HOODIE",   desc: "Relaxed. Elevated.",   realImg: "/images/products/cropsweatshirt/cropsweatshirt-02-yacht-front.jpg", link: "/shop/product/cropped-hoodie" },
+    { name: "ESSENTIAL TEE",    desc: "Daily standard.",      realImg: "/images/products/tee/tee-02-scooter.jpg",                    link: "/shop/tees" },
+    { name: "MINIMAL CAP",      desc: "Clean. Intentional.",  realImg: "/images/products/cap/cap-03-pair.jpg",                       link: "/shop/caps" },
   ];
   const [hovered, setHovered] = useState(null);
   const w   = useWindowWidth();
@@ -299,7 +299,7 @@ const Products = ({ tweaks }) => {
           </h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", color: "#8a7d72", textTransform: "uppercase" }}>GEAR FOR YOUR STANDARD.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr 1fr" : tab ? "1fr 1fr" : "repeat(4, 1fr)", gap: mob ? "32px 16px" : 32 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : tab ? "1fr 1fr" : "repeat(4, 1fr)", gap: mob ? 40 : 32 }}>
           {products.map(({ name, desc, imgPlaceholder, realImg, link }, i) => (
             <div key={i} style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ aspectRatio: "4/5", overflow: "hidden", marginBottom: 20 }}>
