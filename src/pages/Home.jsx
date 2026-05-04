@@ -90,6 +90,12 @@ const Hero = ({ tweaks }) => {
   const [hoverPrimary, setHoverPrimary] = useState(false);
   const [hoverSecondary, setHoverSecondary] = useState(false);
   const avatarColors = ["#c8b89a", "#b5a990", "#9e9285", "#8a7d72"];
+  const avatarFaces = [
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&h=80&q=80",
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80",
+  ];
   const w   = useWindowWidth();
   const mob = w < 768;
 
@@ -186,13 +192,9 @@ const Hero = ({ tweaks }) => {
         {tweaks.showSocialProof && (
           <div style={{ display: "flex", alignItems: "center", justifyContent: mob ? "center" : "flex-start", gap: 12 }}>
             <div style={{ display: "flex" }}>
-              {avatarColors.map((color, i) => (
-                <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: color, border: "2px solid #f5f0eb", marginLeft: i > 0 ? -10 : 0, overflow: "hidden" }}>
-                  <svg viewBox="0 0 32 32" width="32" height="32">
-                    <rect width="32" height="32" fill={color}/>
-                    <circle cx="16" cy="12" r="6" fill={`${color}88`}/>
-                    <ellipse cx="16" cy="28" rx="10" ry="7" fill={`${color}88`}/>
-                  </svg>
+              {avatarFaces.map((src, i) => (
+                <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: avatarColors[i], border: "2px solid #f5f0eb", marginLeft: i > 0 ? -10 : 0, overflow: "hidden", flexShrink: 0 }}>
+                  <img src={src} alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 </div>
               ))}
             </div>
@@ -279,9 +281,10 @@ const Story = ({ tweaks }) => {
 // ── Products ───────────────────────────────────────────────────────────────
 const Products = ({ tweaks }) => {
   const products = [
-    { name: "PREMIUM HOODIE", desc: "Built for clarity.",  realImg: "/images/products/cropsweatshirt/cropsweatshirt-02-yacht-front.jpg", link: "/shop/hoodies" },
-    { name: "ESSENTIAL TEE",  desc: "Daily standard.",     realImg: "/images/products/tee/tee-02-scooter.jpg",                               link: "/shop/tees" },
-    { name: "MINIMAL CAP",    desc: "Clean. Intentional.", realImg: "/images/products/cap/cap-03-pair.jpg",      link: "/shop/caps" },
+    { name: "ESSENTIAL HOODIE", desc: "Built for clarity.",   realImg: "/images/products/cropsweatshirt/black-hoodie-1.jpg",  link: "/shop/product/essential-hoodie" },
+    { name: "CROPPED HOODIE",   desc: "Relaxed. Elevated.",   realImg: "/images/products/cropsweatshirt/blush-hoodie-1.jpg",  link: "/shop/product/cropped-hoodie" },
+    { name: "ESSENTIAL TEE",    desc: "Daily standard.",      realImg: "/images/products/tee/tee-02-scooter.jpg",             link: "/shop/tees" },
+    { name: "MINIMAL CAP",      desc: "Clean. Intentional.",  realImg: "/images/products/cap/cap-03-pair.jpg",               link: "/shop/caps" },
   ];
   const [hovered, setHovered] = useState(null);
   const w   = useWindowWidth();
@@ -296,7 +299,7 @@ const Products = ({ tweaks }) => {
           </h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", color: "#8a7d72", textTransform: "uppercase" }}>GEAR FOR YOUR STANDARD.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : tab ? "1fr 1fr" : "repeat(3, 1fr)", gap: mob ? 40 : 32 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr 1fr" : tab ? "1fr 1fr" : "repeat(4, 1fr)", gap: mob ? "32px 16px" : 32 }}>
           {products.map(({ name, desc, imgPlaceholder, realImg, link }, i) => (
             <div key={i} style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ aspectRatio: "4/5", overflow: "hidden", marginBottom: 20 }}>
