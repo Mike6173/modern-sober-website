@@ -281,7 +281,7 @@ const Story = ({ tweaks }) => {
 // ── Products ───────────────────────────────────────────────────────────────
 const Products = ({ tweaks }) => {
   const products = [
-    { name: "ESSENTIAL HOODIE", desc: "Built for clarity.",   realImg: "/images/products/cropsweatshirt/black-hoodie-3.jpg",         link: "/shop/product/essential-hoodie" },
+    { name: "ESSENTIAL HOODIE", desc: "Built for clarity.",   realImg: "/images/products/hoodie/hoodie-03-yacht-sitting.jpg",       link: "/shop/product/essential-hoodie" },
     { name: "CROPPED HOODIE",   desc: "Relaxed. Elevated.",   realImg: "/images/products/cropsweatshirt/cropsweatshirt-02-yacht-front.jpg", link: "/shop/product/cropped-hoodie" },
     { name: "ESSENTIAL TEE",    desc: "Daily standard.",      realImg: "/images/products/tee/tee-02-scooter.jpg",                    link: "/shop/tees" },
     { name: "MINIMAL CAP",      desc: "Clean. Intentional.",  realImg: "/images/products/cap/cap-03-pair.jpg",                       link: "/shop/caps" },
