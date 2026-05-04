@@ -127,6 +127,13 @@ select.form-field {
   cursor: pointer;
 }
 
+/* ── Shop dropdown animation ─────────────────────────────────────────────── */
+@keyframes shopDropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.shop-dropdown { animation: shopDropIn 0.18s ease; }
+
 /* ── Mobile responsive utilities ─────────────────────────────────────────── */
 
 /* Email capture: row on desktop, stacked on mobile */

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import heroImg from '../../modernsoberhero.png';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -93,7 +94,7 @@ const Hero = ({ tweaks }) => {
   const mob = w < 768;
 
   return (
-    <section style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: "#1a1714" }}>
+    <section style={{ position: "relative", minHeight: mob ? "75vh" : "100vh", overflow: "hidden", background: "#1a1714" }}>
       {/* SVG unsharp mask filter */}
       <svg style={{ position: "absolute", width: 0, height: 0 }}>
         <defs>
@@ -146,37 +147,44 @@ const Hero = ({ tweaks }) => {
       {/* Text content */}
       <div style={{
         position: "relative", zIndex: 1,
-        display: "flex", flexDirection: "column", justifyContent: mob ? "flex-start" : "center",
-        minHeight: "100vh",
-        padding: mob ? "90px 24px 60px" : "120px 80px 80px 80px",
+        display: "flex", flexDirection: "column",
+        justifyContent: "center",
+        alignItems: mob ? "center" : "flex-start",
+        textAlign: mob ? "center" : "left",
+        minHeight: mob ? "75vh" : "100vh",
+        padding: mob ? "72px 24px 48px" : "120px 80px 80px 80px",
         maxWidth: mob ? "100%" : 560,
+        margin: mob ? "0 auto" : "0",
       }}>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "clamp(28px, 7vw, 36px)" : "clamp(32px, 3.5vw, 48px)", fontWeight: 500, letterSpacing: "0.24em", color: "#1a1714", marginBottom: 24, textTransform: "uppercase" }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "clamp(18px, 5vw, 24px)" : "clamp(32px, 3.5vw, 48px)", fontWeight: 500, letterSpacing: "0.24em", color: "#1a1714", marginBottom: 16, textTransform: "uppercase" }}>
           MODERN SØBER
         </p>
         <h1 style={{
           fontFamily: `'${tweaks.headingFont}', serif`,
-          fontSize: mob ? "clamp(42px, 11vw, 64px)" : "clamp(52px, 6vw, 88px)",
+          fontSize: mob ? "clamp(36px, 10vw, 52px)" : "clamp(52px, 6vw, 88px)",
           fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.01em", color: "#1a1714",
-          marginBottom: 24, whiteSpace: "pre-line",
+          marginBottom: 20, whiteSpace: "pre-line",
         }}>
           {tweaks.heroHeadline}
         </h1>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "15px", fontWeight: 300, lineHeight: 1.75, color: "#4a4440", marginBottom: 36, whiteSpace: "pre-line", maxWidth: 360 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.75, color: "#4a4440", marginBottom: 28, whiteSpace: "pre-line", maxWidth: mob ? 300 : 360 }}>
           {tweaks.heroSub}
         </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, width: mob ? "100%" : 280, maxWidth: 320, marginBottom: 40 }}>
-          <button
-            style={{ background: hoverPrimary ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48 }}
-            onMouseEnter={() => setHoverPrimary(true)} onMouseLeave={() => setHoverPrimary(false)}
-          >{tweaks.ctaPrimary}</button>
-          <button
-            style={{ background: hoverSecondary ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "15px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48 }}
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, width: mob ? "100%" : 280, maxWidth: 320, marginBottom: 28 }}>
+          <Link to="/shop" style={{ textDecoration: 'none' }}>
+            <button
+              style={{ background: hoverPrimary ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "14px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: "100%" }}
+              onMouseEnter={() => setHoverPrimary(true)} onMouseLeave={() => setHoverPrimary(false)}
+            >{tweaks.ctaPrimary}</button>
+          </Link>
+          <a
+            href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
+            style={{ background: hoverSecondary ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "13px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48, textDecoration: 'none' }}
             onMouseEnter={() => setHoverSecondary(true)} onMouseLeave={() => setHoverSecondary(false)}
-          ><IconFacebook/> {tweaks.ctaSecondary}</button>
+          ><IconFacebook/> {tweaks.ctaSecondary}</a>
         </div>
         {tweaks.showSocialProof && (
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: mob ? "center" : "flex-start", gap: 12 }}>
             <div style={{ display: "flex" }}>
               {avatarColors.map((color, i) => (
                 <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: color, border: "2px solid #f5f0eb", marginLeft: i > 0 ? -10 : 0, overflow: "hidden" }}>
@@ -188,7 +196,7 @@ const Hero = ({ tweaks }) => {
                 </div>
               ))}
             </div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#6a6058", lineHeight: 1.5 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#6a6058", lineHeight: 1.5, textAlign: mob ? "left" : "left" }}>
               Thousands are already<br/>choosing clarity.
             </p>
           </div>
@@ -217,7 +225,7 @@ const ValueProps = ({ tweaks }) => {
       }}>
         {props.map(({ Icon, title, body }, i) => (
           <div key={i} style={{
-            padding: mob ? "40px 20px" : "60px 48px",
+            padding: mob ? "40px 24px" : "60px 48px",
             borderRight: mob
               ? (i % 2 === 0 ? "1px solid rgba(26,23,20,0.1)" : "none")
               : (i < 3 ? "1px solid rgba(26,23,20,0.1)" : "none"),
@@ -271,9 +279,9 @@ const Story = ({ tweaks }) => {
 // ── Products ───────────────────────────────────────────────────────────────
 const Products = ({ tweaks }) => {
   const products = [
-    { name: "PREMIUM HOODIE", desc: "Built for clarity.",    img: "oversized black hoodie, editorial" },
-    { name: "ESSENTIAL TEE",  desc: "Daily standard.",       img: "minimal tee, model wearing brand" },
-    { name: "MINIMAL CAP",    desc: "Clean. Intentional.",   img: "structured cap, MS embroidery" },
+    { name: "PREMIUM HOODIE", desc: "Built for clarity.",  realImg: "/images/products/cropsweatshirt/cropsweatshirt-02-yacht-front.jpg", link: "/shop/hoodies" },
+    { name: "ESSENTIAL TEE",  desc: "Daily standard.",     realImg: "/images/products/tee/tee-02-scooter.jpg",                               link: "/shop/tees" },
+    { name: "MINIMAL CAP",    desc: "Clean. Intentional.", realImg: "/images/products/cap/cap-03-pair.jpg",      link: "/shop/caps" },
   ];
   const [hovered, setHovered] = useState(null);
   const w   = useWindowWidth();
@@ -289,17 +297,22 @@ const Products = ({ tweaks }) => {
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", color: "#8a7d72", textTransform: "uppercase" }}>GEAR FOR YOUR STANDARD.</p>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : tab ? "1fr 1fr" : "repeat(3, 1fr)", gap: mob ? 40 : 32 }}>
-          {products.map(({ name, desc, img }, i) => (
+          {products.map(({ name, desc, imgPlaceholder, realImg, link }, i) => (
             <div key={i} style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ aspectRatio: "4/5", overflow: "hidden", marginBottom: 20 }}>
-                <ImgPlaceholder label={img} w={400} h={500} dark/>
+                {realImg
+                  ? <img src={realImg} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} loading="lazy" />
+                  : <ImgPlaceholder label={imgPlaceholder} w={400} h={500} dark/>
+                }
               </div>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.2em", color: "#1a1714", marginBottom: 4, textTransform: "uppercase" }}>{name}</p>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 300, color: "#8a7d72", marginBottom: 16 }}>{desc}</p>
-              <button
-                style={{ background: hovered === i ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "14px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.22em", cursor: "pointer", transition: "background 0.2s", width: "100%", minHeight: 48 }}
-                onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}
-              >SHOP</button>
+              <Link to={link} style={{ textDecoration: "none" }}>
+                <button
+                  style={{ background: hovered === i ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "14px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.22em", cursor: "pointer", transition: "background 0.2s", width: "100%", minHeight: 48 }}
+                  onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}
+                >SHOP</button>
+              </Link>
             </div>
           ))}
         </div>
@@ -328,17 +341,18 @@ const HomeCommunity = ({ tweaks }) => {
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#4a4440", marginBottom: 32, maxWidth: 340 }}>
           Modern Søber is a shift.<br/>People choosing clarity, discipline,<br/>and control — together.<br/>We don't do this alone.
         </p>
-        <button
-          style={{ background: hoverBtn ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", gap: 10, maxWidth: mob ? "100%" : 260, marginBottom: 20, minHeight: 48 }}
+        <a
+          href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
+          style={{ background: hoverBtn ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", gap: 10, maxWidth: mob ? "100%" : 260, marginBottom: 20, minHeight: 48, textDecoration: 'none' }}
           onMouseEnter={() => setHoverBtn(true)} onMouseLeave={() => setHoverBtn(false)}
-        ><IconFacebook/> JOIN THE COMMUNITY</button>
+        ><IconFacebook/> JOIN THE COMMUNITY</a>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, lineHeight: 2, color: "#8a7d72" }}>
           Private Facebook group. Real people. Real stories. No judgment.
         </p>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: mob ? "120px 120px" : "1fr 1fr", gap: 3 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", gap: 3, height: mob ? 260 : undefined, minHeight: mob ? undefined : 400 }}>
         {imgLabels.map((label, i) => (
-          <div key={i} style={{ overflow: "hidden", position: "relative", aspectRatio: "1/1" }}>
+          <div key={i} style={{ overflow: "hidden", position: "relative" }}>
             {i === 1 && (
               <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none" }}>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 500, letterSpacing: "0.25em", color: "#f5f0eb", textShadow: "0 1px 8px rgba(0,0,0,0.5)", lineHeight: 1.6, textAlign: "center" }}>MODERN<br/>SØBER</p>
@@ -364,8 +378,14 @@ const FinalCTA = ({ tweaks }) => {
         Clarity is available.<br/>Most people just don't choose it.
       </h2>
       <div style={{ display: "flex", flexDirection: mob ? "column" : "row", gap: 12, justifyContent: "center", alignItems: mob ? "stretch" : "center" }}>
-        <button style={{ background: h1 ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "18px 48px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48 }} onMouseEnter={() => setH1(true)} onMouseLeave={() => setH1(false)}>SHOP NOW</button>
-        <button style={{ background: h2 ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "17px 40px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48 }} onMouseEnter={() => setH2(true)} onMouseLeave={() => setH2(false)}><IconFacebook/> JOIN THE MOVEMENT</button>
+        <Link to="/shop" style={{ textDecoration: 'none', display: mob ? 'block' : 'inline-block' }}>
+          <button style={{ background: h1 ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "18px 48px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: mob ? '100%' : 'auto' }} onMouseEnter={() => setH1(true)} onMouseLeave={() => setH1(false)}>SHOP NOW</button>
+        </Link>
+        <a
+          href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
+          style={{ background: h2 ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "17px 40px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48, textDecoration: 'none' }}
+          onMouseEnter={() => setH2(true)} onMouseLeave={() => setH2(false)}
+        ><IconFacebook/> JOIN THE MOVEMENT</a>
       </div>
     </section>
   );
@@ -383,9 +403,9 @@ export default function Home() {
       {/* Flex column allows CSS order reordering on mobile */}
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ order: 1 }}><Hero tweaks={tweaks}/></div>
-        <div style={{ order: mob ? 3 : 2 }}><ValueProps tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 2 : 2 }}><ValueProps tweaks={tweaks}/></div>
         <div style={{ order: mob ? 4 : 3 }}><Story tweaks={tweaks}/></div>
-        <div style={{ order: mob ? 2 : 4 }}><Products tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 3 : 4 }}><Products tweaks={tweaks}/></div>
         <div style={{ order: mob ? 5 : 5 }}><HomeCommunity tweaks={tweaks}/></div>
         <div style={{ order: mob ? 6 : 6 }}><FinalCTA tweaks={tweaks}/></div>
       </div>

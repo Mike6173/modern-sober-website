@@ -21,7 +21,7 @@ function StoryHero() {
         </h1>
       </div>
       {/* Right — image */}
-      <div style={{ overflow: 'hidden', position: 'relative', minHeight: mob ? 280 : 480 }}>
+      <div style={{ overflow: 'hidden', position: 'relative', minHeight: mob ? 320 : 480 }}>
         <img
           src="https://images.unsplash.com/photo-1529977421774-808dda19c3f9?auto=format&fit=crop&w=640&h=700&q=80"
           alt="Founder candid portrait — pensive, natural light"
@@ -163,9 +163,13 @@ function StoryCTA() {
             SHOP
           </button>
         </Link>
-        <button className="btn-outline" style={{ padding: '17px 40px', width: mob ? '100%' : 'auto', justifyContent: 'center' }}>
+        <a
+          href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
+          className="btn-outline"
+          style={{ padding: '17px 40px', width: mob ? '100%' : 'auto', justifyContent: 'center', textDecoration: 'none' }}
+        >
           <Facebook size={18}/> JOIN THE COMMUNITY
-        </button>
+        </a>
       </div>
     </section>
   );

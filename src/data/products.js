@@ -1,6 +1,7 @@
 export const products = [
   {
     id: 'hoodie',
+    category: 'hoodie',
     title: 'Essential Hoodie',
     price: '$120',
     tagline: 'Built for clarity',
@@ -35,12 +36,13 @@ export const products = [
   },
   {
     id: 'cropsweatshirt',
+    category: 'hoodie',
     title: 'Crop Sweatshirt',
     price: '$80',
     tagline: 'Soft structure. Elevated ease.',
     leadImage: {
-      src: '/images/products/cropsweatshirt/cropsweatshirt-01-spec.jpg',
-      alt: 'Crop Sweatshirt spec sheet — woman in blush crop hoodie with feature icons',
+      src: '/images/products/cropsweatshirt/blush-hoodie-1.jpg',
+      alt: 'Blush Cropped Hoodie — front view, MODERN SØBER branding',
     },
     description: {
       headline: 'Soft structure. Elevated ease.',
@@ -65,6 +67,7 @@ export const products = [
   },
   {
     id: 'tee',
+    category: 'tee',
     title: 'Heavy Tee',
     price: '$55',
     tagline: 'Built for everyday',
@@ -95,6 +98,7 @@ export const products = [
   },
   {
     id: 'cap',
+    category: 'cap',
     title: 'Minimal Cap',
     price: '$60',
     tagline: 'Clean. Intentional.',

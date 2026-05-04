@@ -76,7 +76,7 @@ function MemberVoices() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : tab ? '1fr 1fr' : 'repeat(3, 1fr)', gap: mob ? 24 : 32 }}>
           {MEMBERS.map(({ name, location, quote, avatar, avatarAlt }) => (
-            <div key={name} style={{ background: '#f5f0eb', padding: mob ? '28px 24px' : '40px 36px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <div key={name} style={{ background: '#f5f0eb', padding: mob ? '28px 16px' : '40px 36px', display: 'flex', flexDirection: 'column', gap: 24 }}>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', fontWeight: 300, lineHeight: 1.9, color: '#4a4440', flexGrow: 1 }}>
                 "{quote}"
               </p>
@@ -107,14 +107,15 @@ function JoinCTA() {
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', fontWeight: 300, lineHeight: 1.9, color: '#b5a99a', marginBottom: 40 }}>
           Private Facebook group. Vetted members. No noise.
         </p>
-        <button
+        <a
+          href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
           className="btn-primary"
-          style={{ padding: '18px 48px', background: '#f5f0eb', color: '#1a1714', width: mob ? '100%' : 'auto' }}
+          style={{ padding: '18px 48px', background: '#f5f0eb', color: '#1a1714', width: mob ? '100%' : 'auto', textDecoration: 'none' }}
           onMouseEnter={(e) => e.currentTarget.style.background = '#e8e3dd'}
           onMouseLeave={(e) => e.currentTarget.style.background = '#f5f0eb'}
         >
           <Facebook size={18}/> JOIN THE COMMUNITY
-        </button>
+        </a>
       </div>
     </section>
   );

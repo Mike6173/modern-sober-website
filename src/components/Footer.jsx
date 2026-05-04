@@ -36,7 +36,7 @@ export default function Footer() {
             <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', fontWeight: 500, letterSpacing: '0.22em', lineHeight: 1.5, textTransform: 'uppercase', textAlign: 'center' }}>
               MODERN<br/>SØBER
             </div>
-            <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
               {NAV_LINKS.map(({ label, to }) => (
                 <Link key={to} to={to} style={linkStyle}
                   onMouseEnter={(e) => e.target.style.color = '#1a1714'}
@@ -47,8 +47,8 @@ export default function Footer() {
               ))}
             </div>
             <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-              <a href="#" style={{ color: '#1a1714', display: 'flex', minHeight: 44, alignItems: 'center' }} aria-label="Facebook"><Facebook size={18}/></a>
-              <a href="#" style={{ color: '#1a1714', display: 'flex', minHeight: 44, alignItems: 'center' }} aria-label="Instagram"><Instagram size={18} strokeWidth={1.8}/></a>
+              <a href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer" style={{ color: '#1a1714', display: 'flex', minHeight: 44, alignItems: 'center' }} aria-label="Facebook"><Facebook size={18}/></a>
+              <a href="https://www.instagram.com/modern.sober/" target="_blank" rel="noopener noreferrer" style={{ color: '#1a1714', display: 'flex', minHeight: 44, alignItems: 'center' }} aria-label="Instagram"><Instagram size={18} strokeWidth={1.8}/></a>
             </div>
           </div>
         ) : (

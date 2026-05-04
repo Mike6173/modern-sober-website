@@ -13,8 +13,8 @@ const INFO_ITEMS = [
 ];
 
 const SOCIAL_LINKS = [
-  { Icon: Facebook,  label: 'Facebook',   href: '#' },
-  { Icon: Instagram, label: 'Instagram',  href: '#' },
+  { Icon: Facebook,  label: 'Facebook',   href: 'https://www.facebook.com/Modernsober/' },
+  { Icon: Instagram, label: 'Instagram',  href: 'https://www.instagram.com/modern.sober/' },
   { Icon: Twitter,   label: 'X (Twitter)', href: '#' },
   { Icon: Linkedin,  label: 'LinkedIn',   href: '#' },
 ];
@@ -48,6 +48,8 @@ function ContactInfo({ mob }) {
             key={label}
             href={href}
             aria-label={label}
+            target={href !== '#' ? '_blank' : undefined}
+            rel={href !== '#' ? 'noopener noreferrer' : undefined}
             style={{ width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(26,23,20,0.15)', color: '#1a1714', transition: 'border-color 0.2s, background 0.2s', textDecoration: 'none' }}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(26,23,20,0.05)'; e.currentTarget.style.borderColor = '#1a1714'; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(26,23,20,0.15)'; }}
@@ -69,14 +71,15 @@ function ClosingBand() {
         <p style={{ fontFamily: "'Playfair Display', serif", fontSize: mob ? 'clamp(22px, 7vw, 36px)' : 'clamp(26px, 3vw, 42px)', fontWeight: 600, color: '#1a1714', marginBottom: 36, lineHeight: 1.15 }}>
           Or just join us.
         </p>
-        <button
+        <a
+          href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
           className="btn-outline"
-          style={{ padding: '17px 48px', width: mob ? '100%' : 'auto', justifyContent: 'center' }}
+          style={{ padding: '17px 48px', width: mob ? '100%' : 'auto', justifyContent: 'center', textDecoration: 'none' }}
           onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(26,23,20,0.05)'}
           onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
         >
           <Facebook size={18}/> JOIN THE COMMUNITY
-        </button>
+        </a>
       </div>
     </section>
   );
