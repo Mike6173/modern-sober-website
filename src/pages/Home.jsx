@@ -347,7 +347,7 @@ const HomeCommunity = ({ tweaks }) => {
         </p>
         <a
           href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
-          style={{ background: hoverBtn ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", gap: 10, maxWidth: mob ? "100%" : 260, marginBottom: 12, minHeight: 48, textDecoration: 'none' }}
+          style={{ background: hoverBtn ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, maxWidth: mob ? "100%" : 260, marginBottom: 12, minHeight: 48, textDecoration: 'none' }}
           onMouseEnter={() => setHoverBtn(true)} onMouseLeave={() => setHoverBtn(false)}
         ><IconFacebook/> JOIN THE COMMUNITY</a>
         <Link
