@@ -1,0 +1,148 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Modern Søber Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Modern Søber",
+    "theme_documentation_url": "https://modernsober.com",
+    "theme_support_url": "https://modernsober.com/pages/contact"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32×32px"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Nav logo image",
+        "info": "Recommended height: 56px. Used in the header navigation."
+      },
+      {
+        "type": "range",
+        "id": "logo_height",
+        "label": "Logo height (desktop)",
+        "min": 32,
+        "max": 80,
+        "step": 2,
+        "unit": "px",
+        "default": 56
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_bg_cream",
+        "label": "Background cream",
+        "default": "#f5f0eb"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_cream_warm",
+        "label": "Background cream warm (alternate sections)",
+        "default": "#ede8e2"
+      },
+      {
+        "type": "color",
+        "id": "color_ink_black",
+        "label": "Ink black (text & buttons)",
+        "default": "#1a1714"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_panel",
+        "label": "Dark panel (quote sections)",
+        "default": "#1e1b18"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_warm",
+        "label": "Warm accent (quote marks, highlights)",
+        "default": "#c8b89a"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "heading_font",
+        "label": "Heading font",
+        "options": [
+          { "value": "Playfair Display", "label": "Playfair Display" },
+          { "value": "Cormorant Garamond", "label": "Cormorant Garamond" },
+          { "value": "EB Garamond", "label": "EB Garamond" },
+          { "value": "Libre Baskerville", "label": "Libre Baskerville" }
+        ],
+        "default": "Playfair Display"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL",
+        "default": "https://www.facebook.com/Modernsober/"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL",
+        "default": "https://www.instagram.com/modern.sober/"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "Twitter / X URL"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "LinkedIn URL"
+      }
+    ]
+  },
+  {
+    "name": "Contact Info",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Email address",
+        "default": "hello@modernsober.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Phone number"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_address",
+        "label": "Address"
+      },
+      {
+        "type": "text",
+        "id": "contact_hours",
+        "label": "Business hours",
+        "default": "Monday – Friday, 9am – 6pm ET"
+      }
+    ]
+  }
+]

@@ -1,0 +1,83 @@
+<section class="member-voices" aria-label="Member testimonials">
+  <div class="member-voices-inner">
+
+    <div class="member-voices-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="member-voices-title font-heading">
+        {{ section.settings.heading | default: 'Real people. Real shift.' }}
+      </h2>
+    </div>
+
+    <div class="testimonial-grid">
+
+      {%- assign quotes  = section.settings.quote_1 | default: 'I stopped talking about wanting to change and started doing it. This community is the first place where that didn\'t feel weird or dramatic. It\'s just people who get it.'
+        | append: '||'
+        | append: section.settings.quote_2 | default: 'I never thought I needed a community for something like this. But the consistency I\'ve built over the last four months came from checking in here every morning. It\'s grounding.'
+        | append: '||'
+        | append: section.settings.quote_3 | default: 'What I appreciate is how normal everyone is. No one is performing sobriety or competing over who has the most discipline. It\'s real people figuring it out together.'
+        | split: '||' -%}
+
+      {%- assign names  = section.settings.name_1 | default: 'Marcus T.'
+        | append: '||'
+        | append: section.settings.name_2 | default: 'Elena R.'
+        | append: '||'
+        | append: section.settings.name_3 | default: 'David K.'
+        | split: '||' -%}
+
+      {%- assign locs   = section.settings.loc_1 | default: 'Brooklyn, NY'
+        | append: '||'
+        | append: section.settings.loc_2 | default: 'Austin, TX'
+        | append: '||'
+        | append: section.settings.loc_3 | default: 'Chicago, IL'
+        | split: '||' -%}
+
+      {%- assign avatar_fallbacks = 'https://images.unsplash.com/photo-1529977421774-808dda19c3f9?auto=format&fit=crop&w=80&h=80&q=80||https://images.unsplash.com/photo-1590649681928-4b179f773bd5?auto=format&fit=crop&w=80&h=80&q=80||https://images.unsplash.com/photo-1623366302587-b38b1ddaefd9?auto=format&fit=crop&w=80&h=80&q=80' | split: '||' -%}
+
+      {%- assign avatar_keys = 'avatar_1,avatar_2,avatar_3' | split: ',' -%}
+
+      {%- for i in (0..2) -%}
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"{{ quotes[i] }}"</p>
+          <div class="testimonial-author">
+            {%- assign av = section.settings[avatar_keys[i]] -%}
+            {%- if av != blank -%}
+              <img src="{{ av | image_url: width: 80 }}" alt="{{ names[i] }}" width="44" height="44" loading="lazy">
+            {%- else -%}
+              <img src="{{ avatar_fallbacks[i] }}" alt="{{ names[i] }}" width="44" height="44" loading="lazy">
+            {%- endif -%}
+            <div>
+              <p class="testimonial-name">{{ names[i] }}</p>
+              <p class="testimonial-location">{{ locs[i] }}</p>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Community Testimonials",
+  "settings": [
+    { "type": "text",         "id": "eyebrow",  "label": "Eyebrow",    "default": "MEMBER VOICES" },
+    { "type": "text",         "id": "heading",  "label": "Heading",    "default": "Real people. Real shift." },
+    { "type": "textarea",     "id": "quote_1",  "label": "Quote 1" },
+    { "type": "text",         "id": "name_1",   "label": "Name 1",     "default": "Marcus T." },
+    { "type": "text",         "id": "loc_1",    "label": "Location 1", "default": "Brooklyn, NY" },
+    { "type": "image_picker", "id": "avatar_1", "label": "Avatar 1" },
+    { "type": "textarea",     "id": "quote_2",  "label": "Quote 2" },
+    { "type": "text",         "id": "name_2",   "label": "Name 2",     "default": "Elena R." },
+    { "type": "text",         "id": "loc_2",    "label": "Location 2", "default": "Austin, TX" },
+    { "type": "image_picker", "id": "avatar_2", "label": "Avatar 2" },
+    { "type": "textarea",     "id": "quote_3",  "label": "Quote 3" },
+    { "type": "text",         "id": "name_3",   "label": "Name 3",     "default": "David K." },
+    { "type": "text",         "id": "loc_3",    "label": "Location 3", "default": "Chicago, IL" },
+    { "type": "image_picker", "id": "avatar_3", "label": "Avatar 3" }
+  ],
+  "presets": [{ "name": "Community Testimonials", "category": "Content" }]
+}
+{% endschema %}

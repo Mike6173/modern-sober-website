@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "story-hero": {
+      "type": "story-hero",
+      "settings": {
+        "eyebrow": "OUR STORY",
+        "heading": "We started where excess ended."
+      }
+    },
+    "story-longform": {
+      "type": "story-longform",
+      "settings": {}
+    },
+    "story-values": {
+      "type": "story-values",
+      "settings": {}
+    },
+    "founder-quote": {
+      "type": "founder-quote",
+      "settings": {
+        "quote": "We are not a sobriety brand. We are a clarity brand. The two are not the same.",
+        "attribution": "Founder"
+      }
+    },
+    "story-cta": {
+      "type": "story-cta",
+      "settings": {
+        "heading": "Standards over shortcuts.",
+        "cta_primary_label": "SHOP",
+        "cta_primary_url": "/collections/all",
+        "cta_secondary_label": "JOIN THE COMMUNITY",
+        "cta_secondary_url": "https://www.facebook.com/Modernsober/"
+      }
+    }
+  },
+  "order": [
+    "story-hero",
+    "story-longform",
+    "story-values",
+    "founder-quote",
+    "story-cta"
+  ]
+}

@@ -1,0 +1,72 @@
+<section class="home-story-section" aria-label="Founder story">
+
+  <!-- Left: dark panel with quotes -->
+  <div class="home-story-left">
+
+    <!-- Quote SVG mark -->
+    <div class="home-story-quote-icon" aria-hidden="true">
+      <svg width="28" height="22" viewBox="0 0 28 22" fill="#c8b89a" opacity="0.7">
+        <path d="M0 22V13.2C0 5.6 4.4 1.4 13.2 0l1.4 2.8C10 3.8 7.8 6 7.2 9.6H12V22H0zm16 0V13.2C16 5.6 20.4 1.4 29.2 0L30.6 2.8C26 3.8 23.8 6 23.2 9.6H28V22H16z"/>
+      </svg>
+    </div>
+
+    <p class="home-story-body">
+      {{- section.settings.quote_body_1 | default: "I lived in environments where excess was normal.\nWhere success and escape looked the same." | newline_to_br -}}
+    </p>
+
+    <p class="home-story-highlight font-heading">
+      {{- section.settings.quote_highlight_1 | default: "Everything worked — until it didn't." -}}
+    </p>
+
+    <p class="home-story-body">
+      {{- section.settings.quote_body_2 | default: "Clarity became the edge.\nDiscipline became the advantage." | newline_to_br -}}
+    </p>
+
+    <p class="home-story-highlight font-heading">
+      {{- section.settings.quote_highlight_2 | default: "This isn't about restriction.\nIt's about control." | newline_to_br -}}
+    </p>
+
+    <p class="home-story-attribution">
+      —<br>{{ section.settings.attribution | default: 'Founder' }}
+    </p>
+
+  </div>
+
+  <!-- Right: founder image -->
+  <div class="home-story-right">
+    {%- if section.settings.image != blank -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 1000 }}"
+        alt="Modern Søber founders"
+        width="1000"
+        height="1000"
+        loading="lazy"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'founders-rooftop.jpg' | asset_url }}"
+        alt="Modern Søber founders"
+        width="1000"
+        height="1000"
+        loading="lazy"
+        style="width:100%;height:100%;object-fit:cover;display:block;"
+      >
+    {%- endif -%}
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Home Story",
+  "settings": [
+    { "type": "textarea",     "id": "quote_body_1",      "label": "Quote body 1",      "default": "I lived in environments where excess was normal.\nWhere success and escape looked the same." },
+    { "type": "text",         "id": "quote_highlight_1", "label": "Quote highlight 1", "default": "Everything worked — until it didn't." },
+    { "type": "textarea",     "id": "quote_body_2",      "label": "Quote body 2",      "default": "Clarity became the edge.\nDiscipline became the advantage." },
+    { "type": "text",         "id": "quote_highlight_2", "label": "Quote highlight 2", "default": "This isn't about restriction.\nIt's about control." },
+    { "type": "text",         "id": "attribution",       "label": "Attribution",       "default": "Founder" },
+    { "type": "image_picker", "id": "image",             "label": "Right-side image" }
+  ],
+  "presets": [{ "name": "Home Story", "category": "Content" }]
+}
+{% endschema %}

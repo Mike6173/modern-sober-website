@@ -1,0 +1,37 @@
+<section class="join-cta-section" aria-label="Join the community">
+  <div class="join-cta-inner">
+
+    <h2 class="join-cta-title font-heading">
+      {{- section.settings.heading | default: "Membership is free.\nThe standard is not." | newline_to_br -}}
+    </h2>
+
+    <p class="join-cta-sub">
+      {{- section.settings.body | default: 'Private Facebook group. Vetted members. No noise.' -}}
+    </p>
+
+    <a
+      href="{{ section.settings.cta_url | default: settings.social_facebook }}"
+      class="btn-cream"
+      {% if section.settings.cta_url contains 'facebook' or section.settings.cta_url contains 'instagram' %}target="_blank" rel="noopener noreferrer"{% endif %}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+      {{- section.settings.cta_label | default: 'JOIN THE COMMUNITY' -}}
+    </a>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Join CTA",
+  "settings": [
+    { "type": "textarea", "id": "heading",   "label": "Heading",   "default": "Membership is free.\nThe standard is not." },
+    { "type": "textarea", "id": "body",      "label": "Body",      "default": "Private Facebook group. Vetted members. No noise." },
+    { "type": "text",     "id": "cta_label", "label": "CTA label", "default": "JOIN THE COMMUNITY" },
+    { "type": "url",      "id": "cta_url",   "label": "CTA URL" }
+  ],
+  "presets": [{ "name": "Join CTA", "category": "Content" }]
+}
+{% endschema %}

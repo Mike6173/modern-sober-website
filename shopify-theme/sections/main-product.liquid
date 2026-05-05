@@ -1,0 +1,368 @@
+<!-- ── MAIN PRODUCT — 2-col: gallery left, info + form right ── -->
+
+<div class="product-page">
+
+  <!-- Breadcrumb -->
+  <div class="product-breadcrumb">
+    <a href="/">Home</a>
+    &nbsp;/&nbsp;
+    {%- if product.collections.first -%}
+      <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+    {%- else -%}
+      <a href="/collections/all">Shop</a>
+    {%- endif -%}
+    &nbsp;/&nbsp;
+    <span>{{ product.title }}</span>
+  </div>
+
+  <div class="product-grid">
+
+    <!-- Left: image gallery -->
+    <div class="product-images">
+      <div class="product-main-img">
+        {%- if product.featured_image -%}
+          <img
+            src="{{ product.featured_image | image_url: width: 1200 }}"
+            alt="{{ product.featured_image.alt | escape | default: product.title }}"
+            width="1200"
+            height="1500"
+            loading="eager"
+            id="product-main-image"
+          >
+        {%- else -%}
+          <div style="width:100%;height:100%;background:var(--bg-cream-warm);"></div>
+        {%- endif -%}
+      </div>
+
+      {%- if product.images.size > 1 -%}
+        <div class="product-thumbs">
+          {%- for image in product.images -%}
+            <button
+              class="product-thumb{% if forloop.first %} active{% endif %}"
+              data-src="{{ image | image_url: width: 1200 }}"
+              data-alt="{{ image.alt | escape | default: product.title }}"
+              aria-label="View image {{ forloop.index }}"
+              type="button"
+            >
+              <img
+                src="{{ image | image_url: width: 144 }}"
+                alt="{{ image.alt | escape | default: product.title }}"
+                width="144"
+                height="144"
+                loading="lazy"
+              >
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Right: product info + form -->
+    <div class="product-info">
+
+      <h1 class="product-title">{{ product.title }}</h1>
+
+      <p class="product-price">
+        {%- if product.compare_at_price > product.price -%}
+          <s style="color:var(--muted-3);margin-right:8px;">{{ product.compare_at_price | money }}</s>
+        {%- endif -%}
+        {{ product.price | money }}
+      </p>
+
+      <div class="product-tagline">
+        {%- if product.metafields.custom.tagline != blank -%}
+          {{ product.metafields.custom.tagline }}
+        {%- else -%}
+          {{ product.description | strip_html | truncatewords: 30 }}
+        {%- endif -%}
+      </div>
+
+      {%- if product.tags contains 'pre-order' -%}
+
+        <!-- ── PRE-ORDER LEAD CAPTURE (shown when product is tagged 'pre-order') ── -->
+        <!-- TODO: Wire destination — currently POSTs to Formspree. Replace endpoint   -->
+        <!-- with Klaviyo/Mailchimp/Apliiq when Mike configures the integration.        -->
+
+        <div class="pre-order-badge">PRE-ORDER</div>
+
+        <!-- Variant selector (kept so we know which variant they want) -->
+        {%- unless product.has_only_default_variant -%}
+          <label class="product-option-label" for="po-variant-select">Select Option</label>
+          <select id="po-variant-select" class="product-variant-select" data-po-field="variant">
+            {%- for variant in product.variants -%}
+              <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>
+                {{ variant.title }}
+              </option>
+            {%- endfor -%}
+          </select>
+        {%- else -%}
+          <input type="hidden" data-po-field="variant" value="{{ product.selected_or_first_available_variant.id }}">
+        {%- endunless -%}
+
+        <!-- Pre-order lead form -->
+        <form
+          id="pre-order-form"
+          class="pre-order-form"
+          data-product-id="{{ product.id }}"
+          data-product-title="{{ product.title | escape }}"
+          novalidate
+        >
+
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;">
+
+          <label class="product-option-label" for="po-email">Email *</label>
+          <input
+            id="po-email"
+            name="email"
+            type="email"
+            required
+            placeholder="your@email.com"
+            class="product-variant-select"
+            style="width:100%;margin-bottom:12px;"
+            autocomplete="email"
+          >
+
+          <label class="product-option-label" for="po-phone">Phone <span style="font-weight:300;text-transform:none;letter-spacing:0.04em;">(optional)</span></label>
+          <input
+            id="po-phone"
+            name="phone"
+            type="tel"
+            placeholder="+1 (555) 000-0000"
+            class="product-variant-select"
+            style="width:100%;margin-bottom:16px;"
+            autocomplete="tel"
+          >
+
+          <!-- Error message -->
+          <p id="po-error" role="alert" style="display:none;font-family:var(--font-body);font-size:12px;color:#c0392b;margin-bottom:12px;line-height:1.5;"></p>
+
+          <div class="product-form-actions">
+            <button type="submit" id="po-submit" class="btn-add-to-cart">
+              RESERVE YOURS
+            </button>
+          </div>
+
+          <!-- Success message (hidden until submitted) -->
+          <p id="po-success" role="status" style="display:none;font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--muted-1);line-height:1.8;margin-top:16px;padding:16px;background:var(--bg-cream-warm);border-left:3px solid var(--accent-warm);">
+            Thanks — we'll email you the moment this drops.
+          </p>
+
+        </form>
+
+        <script>
+        (function () {
+          // TODO: Replace with a dedicated Formspree form created at formspree.io
+          // for apparel pre-order leads. Keep separate from the contact form endpoint.
+          var ENDPOINT = 'https://formspree.io/f/mqenbapn';
+
+          var form    = document.getElementById('pre-order-form');
+          var submit  = document.getElementById('po-submit');
+          var success = document.getElementById('po-success');
+          var error   = document.getElementById('po-error');
+
+          if (!form) return;
+
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var honeypot = form.querySelector('[name="_gotcha"]');
+            if (honeypot && honeypot.value) return; // spam
+
+            var emailInput = document.getElementById('po-email');
+            var phoneInput = document.getElementById('po-phone');
+            var variantEl  = form.closest('.product-info').querySelector('[data-po-field="variant"], [id="po-variant-select"]');
+
+            if (!emailInput.value || !emailInput.validity.valid) {
+              error.textContent = 'Please enter a valid email address.';
+              error.style.display = 'block';
+              emailInput.focus();
+              return;
+            }
+
+            error.style.display = 'none';
+            submit.disabled = true;
+            submit.textContent = 'RESERVING...';
+
+            fetch(ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({
+                email:       emailInput.value,
+                phone:       phoneInput ? phoneInput.value : '',
+                product_id:  form.dataset.productId,
+                product:     form.dataset.productTitle,
+                variant_id:  variantEl ? variantEl.value : '',
+                _subject:    'New Apparel Pre-Order Lead — ' + form.dataset.productTitle,
+                _source:     'shopify-pre-order',
+              }),
+            })
+            .then(function (res) { return res.json().then(function (d) { return { ok: res.ok, data: d }; }); })
+            .then(function (r) {
+              if (r.ok) {
+                form.style.display = 'none';
+                success.style.display = 'block';
+              } else {
+                error.textContent = (r.data && r.data.errors && r.data.errors[0] && r.data.errors[0].message) || 'Something went wrong. Please try again.';
+                error.style.display = 'block';
+                submit.disabled = false;
+                submit.textContent = 'RESERVE YOURS';
+              }
+            })
+            .catch(function () {
+              error.textContent = 'Unable to submit. Please check your connection.';
+              error.style.display = 'block';
+              submit.disabled = false;
+              submit.textContent = 'RESERVE YOURS';
+            });
+          });
+        })();
+        </script>
+
+      {%- else -%}
+
+        <!-- ── STANDARD ADD TO CART (products NOT tagged 'pre-order') ── -->
+
+        {%- form 'product', product, id: 'product-form', novalidate: 'novalidate' -%}
+
+          {%- unless product.has_only_default_variant -%}
+            <label class="product-option-label" for="variant-select">Select Option</label>
+            <select
+              id="variant-select"
+              name="id"
+              class="product-variant-select"
+              aria-label="Product variant"
+            >
+              {%- for variant in product.variants -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                  {{ variant.title }}
+                  {%- unless variant.available %} — Sold Out{%- endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+          {%- else -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          {%- endunless -%}
+
+          <!-- Quantity -->
+          <label class="product-option-label" for="product-qty">Quantity</label>
+          <div class="product-qty-wrap">
+            <button class="product-qty-btn" type="button" data-delta="-1" aria-label="Decrease quantity">−</button>
+            <input
+              class="product-qty-input"
+              id="product-qty"
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              aria-label="Quantity"
+            >
+            <button class="product-qty-btn" type="button" data-delta="1" aria-label="Increase quantity">+</button>
+          </div>
+
+          <div class="product-form-actions">
+            <button
+              type="submit"
+              name="add"
+              class="btn-add-to-cart"
+              {%- unless product.available -%}disabled aria-disabled="true"{%- endunless -%}
+            >
+              {%- if product.available -%}ADD TO CART{%- else -%}SOLD OUT{%- endif -%}
+            </button>
+          </div>
+
+        {%- endform -%}
+
+      {%- endif -%}
+
+      <!-- Accordion: Details / Materials / Care / Shipping -->
+      <div class="product-accordion">
+
+        {%- if product.description != blank -%}
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="true" type="button">
+              <span>Details</span>
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(180deg);">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="accordion-body open">
+              <div style="font-family:var(--font-body);font-size:13px;font-weight:300;line-height:1.9;color:var(--muted-1);">
+                {{ product.description }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if product.metafields.custom.materials != blank -%}
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false" type="button">
+              <span>Materials</span>
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="accordion-body">
+              <ul>
+                {%- assign materials = product.metafields.custom.materials | split: ',' -%}
+                {%- for item in materials -%}
+                  <li>{{ item | strip }}</li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if product.metafields.custom.care != blank -%}
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false" type="button">
+              <span>Care</span>
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="accordion-body">
+              <ul>
+                {%- assign care_items = product.metafields.custom.care | split: ',' -%}
+                {%- for item in care_items -%}
+                  <li>{{ item | strip }}</li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" type="button">
+            <span>Shipping & Returns</span>
+            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="accordion-body">
+            <ul>
+              <li>Free standard shipping on orders over $75</li>
+              <li>Ships within 2–4 business days</li>
+              <li>Free returns within 30 days</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /.product-accordion -->
+
+    </div><!-- /.product-info -->
+
+  </div><!-- /.product-grid -->
+
+</div><!-- /.product-page -->
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": []
+}
+{% endschema %}

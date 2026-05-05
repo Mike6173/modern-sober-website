@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Clarity is a luxury.",
+        "subheading": "You don't have to crash to change.\nYou just have to choose better.",
+        "cta_primary_label": "SHOP NOW",
+        "cta_primary_url": "/collections/all",
+        "cta_secondary_label": "JOIN THE COMMUNITY",
+        "cta_secondary_url": "https://www.facebook.com/Modernsober/",
+        "show_social_proof": true,
+        "social_proof_text": "Thousands are already choosing clarity."
+      }
+    },
+    "value-props": {
+      "type": "value-props",
+      "settings": {}
+    },
+    "home-story": {
+      "type": "home-story",
+      "settings": {
+        "quote_body_1": "I lived in environments where excess was normal.\nWhere success and escape looked the same.",
+        "quote_highlight_1": "Everything worked — until it didn't.",
+        "quote_body_2": "Clarity became the edge.\nDiscipline became the advantage.",
+        "quote_highlight_2": "This isn't about restriction.\nIt's about control.",
+        "attribution": "Founder"
+      }
+    },
+    "home-products": {
+      "type": "home-products",
+      "settings": {
+        "heading": "Start with one decision.",
+        "subheading": "GEAR FOR YOUR STANDARD."
+      }
+    },
+    "home-community": {
+      "type": "home-community",
+      "settings": {
+        "heading": "THIS IS BIGGER\nTHAN PRODUCT.",
+        "body": "Modern Søber is a shift.\nPeople choosing clarity, discipline,\nand control — together.\nWe don't do this alone.",
+        "cta_label": "JOIN THE COMMUNITY",
+        "cta_url": "https://www.facebook.com/Modernsober/",
+        "cta_note": "Private Facebook group. Real people. Real stories. No judgment."
+      }
+    },
+    "home-final-cta": {
+      "type": "home-final-cta",
+      "settings": {
+        "heading": "Clarity is available.\nMost people just don't choose it.",
+        "cta_primary_label": "SHOP NOW",
+        "cta_primary_url": "/collections/all",
+        "cta_secondary_label": "JOIN THE MOVEMENT",
+        "cta_secondary_url": "https://www.facebook.com/Modernsober/"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "value-props",
+    "home-story",
+    "home-products",
+    "home-community",
+    "home-final-cta"
+  ]
+}

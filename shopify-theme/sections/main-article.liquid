@@ -1,0 +1,71 @@
+<!-- ── JOURNAL ARTICLE PAGE ── -->
+
+<article style="padding-top: var(--nav-h-desk);" aria-label="{{ article.title }}">
+
+  <!-- Article hero image -->
+  {%- if article.image -%}
+    <div style="position:relative;height:480px;overflow:hidden;background:var(--ink-black);">
+      <img
+        src="{{ article.image | image_url: width: 1920 }}"
+        alt="{{ article.image.alt | escape | default: article.title }}"
+        width="1920"
+        height="960"
+        loading="eager"
+        style="width:100%;height:100%;object-fit:cover;opacity:0.75;"
+      >
+    </div>
+  {%- endif -%}
+
+  <div class="container" style="max-width:800px;padding-top:64px;padding-bottom:100px;">
+
+    <!-- Breadcrumb -->
+    <p style="font-family:var(--font-body);font-size:10px;font-weight:400;letter-spacing:0.16em;color:var(--muted-3);text-transform:uppercase;margin-bottom:40px;">
+      <a href="/" style="color:inherit;text-decoration:none;">Home</a>
+      &nbsp;/&nbsp;
+      <a href="/blogs/journal" style="color:inherit;text-decoration:none;">Journal</a>
+      &nbsp;/&nbsp;
+      <span style="color:var(--ink-black);">{{ article.title | truncatewords: 5 }}</span>
+    </p>
+
+    <!-- Category -->
+    {%- if article.tags.first -%}
+      <span class="eyebrow">{{ article.tags.first | upcase }}</span>
+    {%- endif -%}
+
+    <!-- Title -->
+    <h1 class="font-heading" style="font-size:clamp(32px,5vw,56px);font-weight:600;line-height:1.05;color:var(--ink-black);margin-bottom:20px;letter-spacing:-0.01em;">
+      {{ article.title }}
+    </h1>
+
+    <!-- Meta -->
+    <p style="font-family:var(--font-body);font-size:12px;font-weight:300;color:var(--muted-3);letter-spacing:0.06em;margin-bottom:48px;padding-bottom:40px;border-bottom:1px solid var(--border-light);">
+      {{ article.published_at | date: '%B %-d, %Y' }}
+      {%- if article.author != blank %} &nbsp;·&nbsp; By {{ article.author }}{%- endif -%}
+    </p>
+
+    <!-- Body -->
+    <div class="rte" style="font-family:var(--font-body);font-size:16px;font-weight:300;line-height:1.9;color:var(--muted-1);">
+      {{ article.content }}
+    </div>
+
+    <!-- Back link -->
+    <div style="margin-top:64px;padding-top:40px;border-top:1px solid var(--border-light);">
+      <a href="/blogs/journal" class="journal-read-link" style="border-bottom:none;flex-direction:row-reverse;gap:8px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(180deg);">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+        BACK TO JOURNAL
+      </a>
+    </div>
+
+  </div>
+
+</article>
+
+{% schema %}
+{
+  "name": "Journal Article",
+  "settings": []
+}
+{% endschema %}

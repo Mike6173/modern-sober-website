@@ -1,0 +1,108 @@
+<!-- ── MAIN COLLECTION — hero banner + product grid + pagination ── -->
+
+{%- assign products_per_page = section.settings.products_per_page | default: 12 -%}
+
+{%- paginate collection.products by products_per_page -%}
+
+  <!-- Collection hero -->
+  <div class="collection-hero" style="padding-top:0;">
+    {%- if section.settings.hero_image -%}
+      <img
+        src="{{ section.settings.hero_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.hero_image.alt | escape | default: collection.title }}"
+        width="1920"
+        height="480"
+        loading="eager"
+      >
+    {%- elsif collection.image -%}
+      <img
+        src="{{ collection.image | image_url: width: 1920 }}"
+        alt="{{ collection.image.alt | escape | default: collection.title }}"
+        width="1920"
+        height="480"
+        loading="eager"
+      >
+    {%- else -%}
+      <div style="width:100%;height:100%;background:var(--ink-black);"></div>
+    {%- endif -%}
+
+    <div class="collection-hero-overlay"></div>
+
+    <div class="collection-hero-content">
+      <p class="collection-breadcrumb">
+        <a href="/">Home</a>
+        &nbsp;/&nbsp;
+        <a href="/collections/all">Shop</a>
+        &nbsp;/&nbsp;
+        {{ collection.title }}
+      </p>
+      <h1>{{ collection.title }}</h1>
+      {%- if section.settings.hero_subtitle != blank -%}
+        <p class="collection-hero-sub">{{ section.settings.hero_subtitle }}</p>
+      {%- elsif collection.description != blank -%}
+        <p class="collection-hero-sub">{{ collection.description | strip_html | truncatewords: 12 }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Product count + grid -->
+  <div class="collection-section">
+
+    <div class="collection-count">
+      <p>{{ collection.products_count }} {{ collection.products_count | pluralize: 'item', 'items' }}</p>
+    </div>
+
+    {%- if collection.products.size > 0 -%}
+      <div class="shopify-products-grid">
+        {%- for product in collection.products -%}
+          <div class="shopify-product-card">
+            <a href="{{ product.url }}">
+              <div class="img-wrap">
+                {%- if product.featured_image -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | escape | default: product.title }}"
+                    width="800"
+                    height="1000"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <div style="width:100%;height:100%;background:var(--bg-cream-warm);"></div>
+                {%- endif -%}
+              </div>
+              <p class="card-type">{{ product.type | default: 'Modern Søber' }}</p>
+              <p class="card-name">{{ product.title }}</p>
+              <p class="card-price">{{ product.price | money }}</p>
+            </a>
+            <a href="{{ product.url }}" class="btn-product">VIEW</a>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <div class="pagination" aria-label="Pagination">
+          {{ paginate | default_pagination }}
+        </div>
+      {%- endif -%}
+
+    {%- else -%}
+      <div style="text-align:center;padding:80px 0;">
+        <p style="font-family:var(--font-body);font-size:14px;font-weight:300;color:var(--muted-2);">No products found in this collection.</p>
+        <a href="/collections/all" class="btn-primary" style="margin-top:24px;display:inline-flex;">SHOP ALL</a>
+      </div>
+    {%- endif -%}
+
+  </div>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "image_picker", "id": "hero_image",        "label": "Hero banner image" },
+    { "type": "text",         "id": "hero_subtitle",     "label": "Hero subtitle",     "default": "Quiet pieces. Considered details." },
+    { "type": "range",        "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 }
+  ]
+}
+{% endschema %}

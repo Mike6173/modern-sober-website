@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "eyebrow": "FIELD NOTES",
+        "heading": "On clarity, discipline, and choice.",
+        "articles_per_page": 6
+      }
+    }
+  },
+  "order": ["main"]
+}

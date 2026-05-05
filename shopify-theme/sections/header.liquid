@@ -1,0 +1,200 @@
+<header
+  class="site-header{% unless request.page_type == 'index' %} site-header--solid{% endunless %}"
+  id="site-header"
+  role="banner"
+>
+  <div class="header-inner">
+
+    <!-- ── Logo ───────────────────────────────────────────────── -->
+    <a href="/" class="header-logo" aria-label="Modern Søber — Home">
+      {%- if settings.logo != blank -%}
+        <img
+          src="{{ settings.logo | image_url: height: 56 }}"
+          alt="Modern Søber"
+          width="auto"
+          height="{{ settings.logo_height | default: 56 }}"
+          loading="eager"
+        >
+      {%- else -%}
+        <img
+          src="{{ 'ms-logo-nav.png' | asset_url }}"
+          alt="Modern Søber"
+          width="auto"
+          height="{{ settings.logo_height | default: 56 }}"
+          loading="eager"
+        >
+      {%- endif -%}
+    </a>
+
+    <!-- ── Desktop nav ────────────────────────────────────────── -->
+    <nav class="header-nav-desktop" aria-label="Primary navigation">
+
+      <!-- SHOP dropdown trigger -->
+      <div id="shop-dropdown-wrap" style="position:relative;">
+        <button
+          class="shop-trigger"
+          id="shop-trigger-desktop"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="shop-dropdown"
+        >
+          SHOP
+          <svg class="chevron" width="9" height="6" viewBox="0 0 9 6" fill="none" aria-hidden="true">
+            <path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="nav-divider" aria-hidden="true"></div>
+
+      <!-- Secondary links -->
+      <a href="/pages/our-story"
+        class="nav-link{% if request.path contains 'our-story' %} active{% endif %}"
+        aria-current="{% if request.path contains 'our-story' %}page{% endif %}">
+        OUR STORY
+      </a>
+      <a href="/pages/community"
+        class="nav-link{% if request.path contains 'community' %} active{% endif %}"
+        aria-current="{% if request.path contains 'community' %}page{% endif %}">
+        COMMUNITY
+      </a>
+      <a href="/blogs/journal"
+        class="nav-link{% if request.path contains 'journal' %} active{% endif %}"
+        aria-current="{% if request.path contains 'journal' %}page{% endif %}">
+        JOURNAL
+      </a>
+      <a href="/pages/contact"
+        class="nav-link{% if request.path contains 'contact' %} active{% endif %}"
+        aria-current="{% if request.path contains 'contact' %}page{% endif %}">
+        CONTACT
+      </a>
+    </nav>
+
+    <!-- ── Desktop: cart icon ─────────────────────────────────── -->
+    <div class="header-cart">
+      <a href="/cart" class="header-cart-btn" aria-label="Cart{% if cart.item_count > 0 %} ({{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}){% endif %}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- ── Mobile hamburger ───────────────────────────────────── -->
+    <button
+      class="header-hamburger"
+      id="hamburger-btn"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+
+  </div><!-- /.header-inner -->
+</header>
+
+<!-- ── Desktop SHOP mega-dropdown ─────────────────────────────── -->
+<div
+  id="shop-dropdown"
+  class="shop-dropdown"
+  role="region"
+  aria-label="Shop categories"
+  style="display:none;"
+>
+  <div class="shop-dropdown-inner">
+    <a href="/collections/all"    class="shop-dropdown-link">All</a>
+    <a href="/collections/hoodies" class="shop-dropdown-link">Hoodies</a>
+    <a href="/collections/tees"    class="shop-dropdown-link">Tees</a>
+    <a href="/collections/caps"    class="shop-dropdown-link">Caps</a>
+  </div>
+</div>
+
+<!-- ── Mobile full-screen drawer ──────────────────────────────── -->
+<nav
+  id="mobile-menu"
+  class="mobile-menu"
+  aria-label="Mobile navigation"
+  aria-hidden="true"
+>
+
+  <!-- SHOP accordion -->
+  <div class="mobile-shop-accordion">
+    <button
+      class="mobile-shop-trigger"
+      id="shop-trigger-mobile"
+      aria-expanded="false"
+      aria-controls="mobile-shop-sub"
+    >
+      <span>SHOP</span>
+      <svg
+        id="mobile-shop-chevron"
+        width="9" height="6" viewBox="0 0 9 6" fill="none"
+        style="transition:transform 0.2s; flex-shrink:0;"
+        aria-hidden="true"
+      >
+        <path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div id="mobile-shop-sub" class="mobile-shop-sub" aria-hidden="true">
+      <a href="/collections/all">All</a>
+      <a href="/collections/hoodies">Hoodies</a>
+      <a href="/collections/tees">Tees</a>
+      <a href="/collections/caps">Caps</a>
+    </div>
+  </div>
+
+  <!-- Secondary links -->
+  <a href="/pages/our-story"
+    class="mobile-nav-link{% if request.path contains 'our-story' %} active{% endif %}">
+    OUR STORY
+  </a>
+  <a href="/pages/community"
+    class="mobile-nav-link{% if request.path contains 'community' %} active{% endif %}">
+    COMMUNITY
+  </a>
+  <a href="/blogs/journal"
+    class="mobile-nav-link{% if request.path contains 'journal' %} active{% endif %}">
+    JOURNAL
+  </a>
+  <a href="/pages/contact"
+    class="mobile-nav-link{% if request.path contains 'contact' %} active{% endif %}">
+    CONTACT
+  </a>
+
+  <!-- Mobile cart -->
+  <div class="mobile-cart">
+    <a href="/cart" aria-label="Cart{% if cart.item_count > 0 %} — {{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}{% endif %}" style="position:relative;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      {%- if cart.item_count > 0 -%}
+        <span class="cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+      {%- endif -%}
+    </a>
+  </div>
+
+</nav>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

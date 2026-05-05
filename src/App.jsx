@@ -10,6 +10,7 @@ import Community from './pages/Community';
 import Journal from './pages/Journal';
 import JournalPost from './pages/JournalPost';
 import Contact from './pages/Contact';
+import PreOrder from './pages/PreOrder';
 // Gender + category pages — hidden from nav per client, kept for future use
 import ProductDetailPage from './pages/ProductDetailPage';
 import CategoryPage from './pages/CategoryPage';
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/journal" element={<Journal />} />
         <Route path="/journal/:slug" element={<JournalPost />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/pre-order" element={<PreOrder />} />
       </Routes>
     </>
   );

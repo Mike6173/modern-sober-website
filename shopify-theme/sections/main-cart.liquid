@@ -1,0 +1,118 @@
+<!-- ── MAIN CART — line items + summary + checkout ── -->
+
+<div class="cart-page">
+  <div class="cart-page-inner">
+
+    <h1 class="cart-title font-heading">Your Cart</h1>
+
+    {%- if cart.item_count == 0 -%}
+
+      <!-- Empty state -->
+      <div class="cart-empty">
+        <p class="cart-empty-title">Your cart is empty.</p>
+        <p class="cart-empty-sub">Looks like you haven't added anything yet.</p>
+        <a href="/collections/all" class="btn-primary">SHOP NOW</a>
+      </div>
+
+    {%- else -%}
+
+      {%- form 'cart', cart, id: 'cart-form' -%}
+
+        <div class="cart-layout">
+
+          <!-- Line items -->
+          <div class="cart-items">
+            {%- for item in cart.items -%}
+              <div class="cart-line-item">
+
+                <!-- Product image -->
+                <a href="{{ item.url }}" class="cart-item-img" tabindex="-1" aria-hidden="true">
+                  {%- if item.image -%}
+                    <img
+                      src="{{ item.image | image_url: width: 200 }}"
+                      alt="{{ item.image.alt | escape | default: item.title }}"
+                      width="200"
+                      height="250"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    <div style="width:100%;height:100%;background:var(--bg-cream-warm);"></div>
+                  {%- endif -%}
+                </a>
+
+                <!-- Item info -->
+                <div>
+                  <p class="cart-item-name">
+                    <a href="{{ item.url }}" style="color:inherit;text-decoration:none;">{{ item.product.title }}</a>
+                  </p>
+                  {%- unless item.variant.title == 'Default Title' -%}
+                    <p class="cart-item-variant">{{ item.variant.title }}</p>
+                  {%- endunless -%}
+                  <p class="cart-item-price">{{ item.final_line_price | money }}</p>
+
+                  <!-- Qty input (auto-submits via JS on change) -->
+                  <input
+                    class="cart-item-qty"
+                    type="number"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    aria-label="Quantity for {{ item.product.title | escape }}"
+                  >
+                </div>
+
+                <!-- Remove -->
+                <div>
+                  <a
+                    href="{{ item.url_to_remove }}"
+                    class="cart-remove"
+                    aria-label="Remove {{ item.product.title | escape }} from cart"
+                  >Remove</a>
+                </div>
+
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <!-- Order summary -->
+          <div class="cart-summary">
+            <p class="cart-summary-title">Order Summary</p>
+
+            <div class="cart-subtotal-row">
+              <span class="cart-subtotal-label">Subtotal</span>
+              <span class="cart-subtotal-value">{{ cart.total_price | money }}</span>
+            </div>
+
+            {%- if cart.total_discounts > 0 -%}
+              <div class="cart-subtotal-row" style="margin-top:8px;">
+                <span class="cart-subtotal-label" style="color:var(--muted-3);">Savings</span>
+                <span style="font-family:var(--font-body);font-size:14px;font-weight:400;color:#2a6b3a;">−{{ cart.total_discounts | money }}</span>
+              </div>
+            {%- endif -%}
+
+            <p class="cart-note">Taxes and shipping calculated at checkout.</p>
+
+            <button type="submit" name="checkout" class="btn-primary" style="width:100%;justify-content:center;">
+              CHECKOUT
+            </button>
+
+            <a href="/collections/all" style="display:block;text-align:center;margin-top:16px;font-family:var(--font-body);font-size:11px;font-weight:400;letter-spacing:0.1em;color:var(--muted-3);text-decoration:none;text-transform:uppercase;min-height:44px;line-height:44px;transition:color 0.2s;" onmouseover="this.style.color='var(--ink-black)'" onmouseout="this.style.color='var(--muted-3)'">
+              Continue Shopping
+            </a>
+          </div>
+
+        </div><!-- /.cart-layout -->
+
+      {%- endform -%}
+
+    {%- endif -%}
+
+  </div><!-- /.cart-page-inner -->
+</div><!-- /.cart-page -->
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

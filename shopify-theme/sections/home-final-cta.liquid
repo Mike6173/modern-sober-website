@@ -1,0 +1,40 @@
+<section class="home-final-cta" aria-label="Call to action">
+
+  <h2 class="home-final-cta-title font-heading">
+    {{- section.settings.heading | default: "Clarity is available.\nMost people just don't choose it." | newline_to_br -}}
+  </h2>
+
+  <div class="home-final-cta-actions">
+
+    <a href="{{ section.settings.cta_primary_url | default: '/collections/all' }}" class="btn-primary">
+      {{- section.settings.cta_primary_label | default: 'SHOP NOW' -}}
+    </a>
+
+    <a
+      href="{{ section.settings.cta_secondary_url | default: settings.social_facebook }}"
+      class="btn-outline"
+      {% if section.settings.cta_secondary_url contains 'facebook' or section.settings.cta_secondary_url contains 'instagram' %}target="_blank" rel="noopener noreferrer"{% endif %}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+      {{- section.settings.cta_secondary_label | default: 'JOIN THE MOVEMENT' -}}
+    </a>
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Home Final CTA",
+  "settings": [
+    { "type": "textarea", "id": "heading",             "label": "Heading",             "default": "Clarity is available.\nMost people just don't choose it." },
+    { "type": "text",     "id": "cta_primary_label",   "label": "Primary CTA label",   "default": "SHOP NOW" },
+    { "type": "url",      "id": "cta_primary_url",     "label": "Primary CTA URL" },
+    { "type": "text",     "id": "cta_secondary_label", "label": "Secondary CTA label", "default": "JOIN THE MOVEMENT" },
+    { "type": "url",      "id": "cta_secondary_url",   "label": "Secondary CTA URL" }
+  ],
+  "presets": [{ "name": "Home Final CTA", "category": "Content" }]
+}
+{% endschema %}

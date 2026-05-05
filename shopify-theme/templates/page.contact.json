@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "GET IN TOUCH",
+        "heading": "We read every message.",
+        "subtitle": "For press, partnerships, support, or just to say hello."
+      }
+    },
+    "contact-page": {
+      "type": "contact-page",
+      "settings": {}
+    },
+    "closing-band": {
+      "type": "closing-band",
+      "settings": {
+        "heading": "Or just join us.",
+        "cta_label": "JOIN THE COMMUNITY",
+        "cta_url": "https://www.facebook.com/Modernsober/"
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "contact-page",
+    "closing-band"
+  ]
+}

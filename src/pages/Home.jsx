@@ -327,6 +327,7 @@ const Products = ({ tweaks }) => {
 // ── Community ──────────────────────────────────────────────────────────────
 const HomeCommunity = ({ tweaks }) => {
   const [hoverBtn, setHoverBtn] = useState(false);
+  const [hoverPreOrder, setHoverPreOrder] = useState(false);
   const imgLabels = [
     "couple with coffee, casual brand apparel",
     "back view, MODERN SØBER hoodie, street",
@@ -346,9 +347,14 @@ const HomeCommunity = ({ tweaks }) => {
         </p>
         <a
           href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
-          style={{ background: hoverBtn ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", gap: 10, maxWidth: mob ? "100%" : 260, marginBottom: 20, minHeight: 48, textDecoration: 'none' }}
+          style={{ background: hoverBtn ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "16px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", gap: 10, maxWidth: mob ? "100%" : 260, marginBottom: 12, minHeight: 48, textDecoration: 'none' }}
           onMouseEnter={() => setHoverBtn(true)} onMouseLeave={() => setHoverBtn(false)}
         ><IconFacebook/> JOIN THE COMMUNITY</a>
+        <Link
+          to="/pre-order"
+          style={{ background: hoverPreOrder ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "15px 28px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.18em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", maxWidth: mob ? "100%" : 260, marginBottom: 20, minHeight: 48, textDecoration: 'none' }}
+          onMouseEnter={() => setHoverPreOrder(true)} onMouseLeave={() => setHoverPreOrder(false)}
+        >PRE-ORDER BOOK</Link>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, lineHeight: 2, color: "#8a7d72" }}>
           Private Facebook group. Real people. Real stories. No judgment.
         </p>

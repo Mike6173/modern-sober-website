@@ -1,0 +1,19 @@
+<!-- ── MAIN PAGE — generic Shopify page content ── -->
+
+<div style="padding-top: var(--nav-h-desk);">
+  <div class="container" style="padding-top: 60px; padding-bottom: 100px; max-width: 800px; margin: 0 auto;">
+    <h1 class="font-heading" style="font-size: clamp(28px, 4vw, 48px); font-weight: 600; color: var(--ink-black); margin-bottom: 32px;">
+      {{ page.title }}
+    </h1>
+    <div class="rte font-body" style="font-size: 15px; font-weight: 300; line-height: 1.9; color: var(--muted-1);">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": []
+}
+{% endschema %}

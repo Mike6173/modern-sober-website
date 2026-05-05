@@ -1,0 +1,152 @@
+<!-- ── JOURNAL BLOG — page hero + featured + article grid + newsletter ── -->
+
+{%- assign blog_handle = 'journal' -%}
+{%- assign current_blog = blogs[blog_handle] -%}
+{%- assign articles_per_page = section.settings.articles_per_page | default: 6 -%}
+
+<!-- Page hero -->
+<section class="page-hero" aria-label="Journal header">
+  <div class="page-hero-inner">
+    <span class="eyebrow">{{ section.settings.eyebrow | default: 'FIELD NOTES' }}</span>
+    <h1 class="page-hero-h1 font-heading">
+      {{ section.settings.heading | default: 'On clarity, discipline, and choice.' }}
+    </h1>
+  </div>
+</section>
+
+{%- paginate current_blog.articles by articles_per_page -%}
+
+  {%- assign featured = current_blog.articles.first -%}
+
+  <!-- Featured article -->
+  {%- if featured -%}
+    <section class="journal-featured" aria-label="Featured article">
+      <div class="journal-featured-card">
+
+        <a href="{{ featured.url }}" class="journal-card-img journal-featured-img" aria-label="{{ featured.title }}">
+          {%- if featured.image -%}
+            <img
+              src="{{ featured.image | image_url: width: 1200 }}"
+              alt="{{ featured.image.alt | escape | default: featured.title }}"
+              width="1200"
+              height="800"
+              loading="eager"
+            >
+          {%- else -%}
+            <div style="width:100%;height:100%;min-height:480px;background:var(--bg-cream-warm);"></div>
+          {%- endif -%}
+        </a>
+
+        <div class="journal-featured-body">
+          {%- if featured.tags.first -%}
+            <p class="journal-article-category">{{ featured.tags.first | upcase }}</p>
+          {%- endif -%}
+          <h2 class="journal-article-title font-heading">
+            <a href="{{ featured.url }}" style="color:inherit;text-decoration:none;">{{ featured.title }}</a>
+          </h2>
+          <p class="journal-article-excerpt">
+            {{ featured.excerpt_or_content | strip_html | truncatewords: 30 }}
+          </p>
+          <p class="journal-article-meta">
+            {{ featured.published_at | date: '%B %-d, %Y' }}
+            {%- if featured.read_time -%} · {{ featured.read_time }} min read{%- endif -%}
+          </p>
+          <a href="{{ featured.url }}" class="journal-read-link">
+            READ
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+  {%- endif -%}
+
+  <!-- Article grid -->
+  <section class="journal-grid-section" aria-label="All articles">
+    <div class="journal-grid-inner">
+      <div class="journal-grid-header">
+        <p class="journal-grid-label">ALL POSTS</p>
+      </div>
+      <div class="journal-articles-grid">
+        {%- for article in current_blog.articles -%}
+          {%- unless forloop.first -%}
+            <article class="journal-card">
+              <a href="{{ article.url }}" style="text-decoration:none;color:inherit;display:block;">
+                <div class="journal-card-img">
+                  {%- if article.image -%}
+                    <img
+                      src="{{ article.image | image_url: width: 800 }}"
+                      alt="{{ article.image.alt | escape | default: article.title }}"
+                      width="800"
+                      height="533"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    <div style="width:100%;height:100%;background:var(--bg-cream-warm);"></div>
+                  {%- endif -%}
+                </div>
+                {%- if article.tags.first -%}
+                  <p class="journal-article-category">{{ article.tags.first | upcase }}</p>
+                {%- endif -%}
+                <h3 class="journal-card-title font-heading">{{ article.title }}</h3>
+              </a>
+              <p class="journal-card-excerpt">
+                {{ article.excerpt_or_content | strip_html | truncatewords: 20 }}
+              </p>
+              <p class="journal-card-meta">
+                {{ article.published_at | date: '%B %-d, %Y' }}
+              </p>
+            </article>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <div class="pagination" aria-label="Pagination">
+          {{ paginate | default_pagination }}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+{%- endpaginate -%}
+
+<!-- Newsletter -->
+<section class="newsletter-section" aria-label="Newsletter signup">
+  <div class="newsletter-inner">
+    <h2 class="newsletter-title font-heading">Get field notes by email.</h2>
+    <p class="newsletter-sub">Once a week. No noise.</p>
+
+    {%- form 'customer', id: 'newsletter_form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="newsletter-form">
+        <input
+          class="newsletter-input"
+          type="email"
+          name="contact[email]"
+          placeholder="your@email.com"
+          autocomplete="email"
+          required
+          aria-label="Email address"
+        >
+        <button type="submit" class="btn-primary" style="font-size:10px;padding:14px 28px;white-space:nowrap;min-height:48px;">
+          SUBSCRIBE
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journal Blog",
+  "settings": [
+    { "type": "text",  "id": "eyebrow",          "label": "Eyebrow",           "default": "FIELD NOTES" },
+    { "type": "text",  "id": "heading",           "label": "Heading",           "default": "On clarity, discipline, and choice." },
+    { "type": "range", "id": "articles_per_page", "label": "Articles per page", "min": 3, "max": 12, "step": 3, "default": 6 }
+  ]
+}
+{% endschema %}

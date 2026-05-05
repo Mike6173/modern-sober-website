@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "THE INNER CIRCLE",
+        "heading": "We move forward together.",
+        "subtitle": "A private space for people choosing clarity, discipline, and control."
+      }
+    },
+    "community-features": {
+      "type": "community-features",
+      "settings": {}
+    },
+    "community-testimonials": {
+      "type": "community-testimonials",
+      "settings": {
+        "eyebrow": "MEMBER VOICES",
+        "heading": "Real people. Real shift."
+      }
+    },
+    "join-cta": {
+      "type": "join-cta",
+      "settings": {
+        "heading": "Membership is free.\nThe standard is not.",
+        "body": "Private Facebook group. Vetted members. No noise.",
+        "cta_label": "JOIN THE COMMUNITY",
+        "cta_url": "https://www.facebook.com/Modernsober/"
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "community-features",
+    "community-testimonials",
+    "join-cta"
+  ]
+}

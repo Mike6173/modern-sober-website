@@ -1,0 +1,56 @@
+<section class="story-longform" aria-label="Our Story">
+  <div class="story-longform-inner">
+
+    <!-- Left: long-form copy -->
+    <div>
+      <p class="story-body-section-label">THE REASON</p>
+
+      {%- assign body_defaults = "For years, I lived inside rooms where excess was the ambient noise. Finance. Hospitality. High-volume social environments. The kind of world where drinking wasn't a habit — it was the architecture of every evening, every deal, every relationship. I wasn't broken. I was running. I just didn't realize it until I stopped.,The year I got serious about clarity was the year I realized I had been performing my life more than living it. Sharpness was available to me at 6am. Presence was available. Focus was available. I'd just been choosing something else every night and wondering why mornings felt like starting from zero.,I didn't want a sobriety brand. I didn't identify with the language of recovery or restriction. What I wanted — what I built — was something for the people who are choosing better not because they hit bottom, but because they looked up and saw how much higher they could go." | split: ',' -%}
+
+      <p class="story-body-p">{{ section.settings.body_1 | default: body_defaults[0] }}</p>
+      <p class="story-body-p">{{ section.settings.body_2 | default: body_defaults[1] }}</p>
+      <p class="story-body-p">{{ section.settings.body_3 | default: body_defaults[2] }}</p>
+
+      <div class="story-body-rule" aria-hidden="true"></div>
+
+      <p class="story-body-section-label">WHAT WE BELIEVE</p>
+
+      {%- assign belief_defaults = "Clarity is not a personality type. It's a practice. It's the daily decision to protect your energy, your attention, and your standards — before anyone else asks you to. Discipline isn't punishment. It's what you build when you respect your own time enough to refuse what dilutes it.,Modern Søber exists for the people who have already made the decision — or who are standing at the edge of it. The gear is a reminder. The community is proof. You are not unusual for wanting more from yourself. You are early." | split: ',' -%}
+
+      <p class="story-body-p">{{ section.settings.body_4 | default: belief_defaults[0] }}</p>
+      <p class="story-body-p">{{ section.settings.body_5 | default: belief_defaults[1] }}</p>
+    </div>
+
+    <!-- Right: founder image -->
+    <div>
+      {%- if section.settings.image != blank -%}
+        <img
+          class="story-longform-img"
+          src="{{ section.settings.image | image_url: width: 800 }}"
+          alt="{{ section.settings.image.alt | escape | default: 'Modern Søber founders' }}"
+          width="800"
+          height="900"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div style="width:100%;aspect-ratio:4/5;background:var(--bg-cream-warm);border-radius:16px;"></div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Longform",
+  "settings": [
+    { "type": "image_picker", "id": "image",  "label": "Side image" },
+    { "type": "textarea",     "id": "body_1", "label": "Paragraph 1" },
+    { "type": "textarea",     "id": "body_2", "label": "Paragraph 2" },
+    { "type": "textarea",     "id": "body_3", "label": "Paragraph 3" },
+    { "type": "textarea",     "id": "body_4", "label": "Paragraph 4 (What We Believe)" },
+    { "type": "textarea",     "id": "body_5", "label": "Paragraph 5" }
+  ],
+  "presets": [{ "name": "Story Longform", "category": "Content" }]
+}
+{% endschema %}

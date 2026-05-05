@@ -1,0 +1,76 @@
+<section class="home-products-section" aria-label="Featured products">
+  <div class="home-products-inner">
+
+    <div class="home-products-header">
+      <h2 class="home-products-title font-heading">
+        {{- section.settings.heading | default: 'Start with one decision.' -}}
+      </h2>
+      <p class="home-products-subtitle">
+        {{- section.settings.subheading | default: 'GEAR FOR YOUR STANDARD.' -}}
+      </p>
+    </div>
+
+    <div class="home-products-grid">
+      {%- assign featured = section.settings.collection -%}
+      {%- if featured != blank and featured.products_count > 0 -%}
+
+        {%- for product in featured.products limit: 4 -%}
+          <div class="product-card">
+
+            <a href="{{ product.url }}" aria-label="{{ product.title }}" tabindex="-1" style="display:block;">
+              <div class="product-img-wrap">
+                {%- if product.featured_image -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | escape | default: product.title }}"
+                    width="800"
+                    height="1000"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <div style="width:100%;height:100%;background:var(--bg-cream-warm);"></div>
+                {%- endif -%}
+              </div>
+            </a>
+
+            <p class="product-card-name">{{ product.title | upcase }}</p>
+            <p class="product-card-tagline">
+              {{- product.metafields.custom.tagline | default: product.description | strip_html | truncatewords: 5, '' -}}
+            </p>
+
+            <a href="{{ product.url }}" class="btn-product">
+              SHOP
+            </a>
+
+          </div>
+        {%- endfor -%}
+
+      {%- else -%}
+        <!-- Fallback: placeholder cards if no collection selected -->
+        {%- assign placeholder_names = 'ESSENTIAL HOODIE,CROPPED HOODIE,ESSENTIAL TEE,MINIMAL CAP' | split: ',' -%}
+        {%- assign placeholder_tags = 'Built for clarity.,Relaxed. Elevated.,Daily standard.,Clean. Intentional.' | split: ',' -%}
+        {%- for i in (0..3) -%}
+          <div class="product-card">
+            <div class="product-img-wrap" style="background:var(--bg-cream-warm);"></div>
+            <p class="product-card-name">{{ placeholder_names[i] }}</p>
+            <p class="product-card-tagline">{{ placeholder_tags[i] }}</p>
+            <a href="/collections/all" class="btn-product">SHOP</a>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home Products",
+  "settings": [
+    { "type": "text",       "id": "heading",    "label": "Heading",    "default": "Start with one decision." },
+    { "type": "text",       "id": "subheading", "label": "Subheading", "default": "GEAR FOR YOUR STANDARD." },
+    { "type": "collection", "id": "collection", "label": "Collection to feature" }
+  ],
+  "presets": [{ "name": "Home Products", "category": "Product" }]
+}
+{% endschema %}
