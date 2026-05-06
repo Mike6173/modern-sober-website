@@ -271,7 +271,7 @@ const Story = ({ tweaks }) => {
         <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "20px", fontWeight: 600, color: "#f0ebe4", marginBottom: 36, lineHeight: 1.4 }}>
           This isn't about restriction.<br/>It's about control.
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>—<br/>Founder</p>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>—<br/>Brandon Smith, Founder</p>
       </div>
       <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
         <img
