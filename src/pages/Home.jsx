@@ -272,7 +272,7 @@ const Story = ({ tweaks }) => {
           This isn't about restriction.<br/>It's about control.
         </p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</span>
           <div style={{ width: 96, height: 96, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1.5px solid #5a4f47" }}>
             <img
