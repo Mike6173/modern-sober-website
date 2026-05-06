@@ -271,17 +271,18 @@ const Story = ({ tweaks }) => {
         <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "20px", fontWeight: 600, color: "#f0ebe4", marginBottom: 36, lineHeight: 1.4 }}>
           This isn't about restriction.<br/>It's about control.
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>—</p>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 6 }}>
-          <div style={{ width: 36, height: 36, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1.5px solid #5a4f47" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+          <div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</span>
+          </div>
+          <div style={{ width: 72, height: 72, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1.5px solid #5a4f47" }}>
             <img
               src="/images/founder/brandon-smith.jpg"
-              alt=""
-              aria-hidden="true"
+              alt="Brandon Smith, founder of Modern Søber"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
             />
           </div>
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</span>
         </div>
       </div>
       <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
