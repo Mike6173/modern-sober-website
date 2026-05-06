@@ -256,8 +256,14 @@ const Story = ({ tweaks }) => {
   const w   = useWindowWidth();
   const mob = w < 768;
   return (
-    <section style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1fr", minHeight: mob ? "auto" : 520 }}>
-      <div style={{ background: "#1e1b18", padding: mob ? "56px 24px" : "80px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+    <section style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "55fr 45fr", minHeight: mob ? "auto" : 520 }}>
+      {/* Quote text — DOM first so it's left on desktop; pushed below on mobile via order */}
+      <div style={{
+        order: mob ? 1 : 0,
+        background: "#1e1b18",
+        padding: mob ? "40px 24px 56px" : "80px 80px",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+      }}>
         <div style={{ color: "#c8b89a", marginBottom: 28 }}><IconQuote/></div>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
           I lived in environments where excess was normal.<br/>Where success and escape looked the same.
@@ -271,15 +277,36 @@ const Story = ({ tweaks }) => {
         <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "20px", fontWeight: 600, color: "#f0ebe4", marginBottom: 36, lineHeight: 1.4 }}>
           This isn't about restriction.<br/>It's about control.
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>—<br/>Founder</p>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>—<br/>Brandon Smith, Founder</p>
       </div>
-      <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
-        <img
-          src="/images/founders/founders-rooftop.jpg"
-          alt="Modern Søber founders on a rooftop overlooking the city"
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          loading="lazy"
-        />
+      {/* Framed headshot — on mobile, ordered before the quote */}
+      <div style={{
+        order: mob ? 0 : 1,
+        background: "#1e1b18",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: mob ? "48px 24px 24px" : "60px 60px",
+      }}>
+        <div style={{ width: mob ? "65%" : "100%", maxWidth: 420, margin: "0 auto" }}>
+          {/* Outer brown wood frame */}
+          <div style={{
+            background: "#7a4f30",
+            padding: mob ? 16 : 20,
+            boxShadow: "0 25px 50px -12px rgba(0,0,0,0.6)",
+          }}>
+            {/* Inner white matte */}
+            <div style={{ background: "#ffffff", padding: mob ? 12 : 16 }}>
+              {/* Portrait — square aspect, no layout shift */}
+              <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
+                <img
+                  src="/images/founder/brandon-smith.jpg"
+                  alt="Brandon Smith, founder of Modern Søber"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
