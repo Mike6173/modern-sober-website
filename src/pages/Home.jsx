@@ -276,7 +276,7 @@ const Story = ({ tweaks }) => {
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</span>
           </div>
-          <div style={{ width: 72, height: 72, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1.5px solid #5a4f47" }}>
+          <div style={{ width: 120, height: 120, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1.5px solid #5a4f47" }}>
             <img
               src="/images/founder/brandon-smith.jpg"
               alt="Brandon Smith, founder of Modern Søber"
