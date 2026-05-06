@@ -334,12 +334,6 @@ const Products = ({ tweaks }) => {
 // ── Community ──────────────────────────────────────────────────────────────
 const HomeCommunity = ({ tweaks }) => {
   const [hoverBtn, setHoverBtn] = useState(false);
-  const imgLabels = [
-    "couple with coffee, casual brand apparel",
-    "back view, MODERN SØBER hoodie, street",
-    "three friends outdoors, laughing",
-    "group seated, relaxed, caps + hoodies",
-  ];
   const w   = useWindowWidth();
   const mob = w < 768;
   return (
@@ -360,17 +354,19 @@ const HomeCommunity = ({ tweaks }) => {
           Private Facebook group. Real people. Real stories. No judgment.
         </p>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", gap: 3, height: mob ? 260 : undefined, minHeight: mob ? undefined : 400 }}>
-        {imgLabels.map((label, i) => (
-          <div key={i} style={{ overflow: "hidden", position: "relative" }}>
-            {i === 1 && (
-              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none" }}>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 500, letterSpacing: "0.25em", color: "#f5f0eb", textShadow: "0 1px 8px rgba(0,0,0,0.5)", lineHeight: 1.6, textAlign: "center" }}>MODERN<br/>SØBER</p>
-              </div>
-            )}
-            <ImgPlaceholder label={label} w={400} h={400} dark/>
-          </div>
-        ))}
+      <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "16fr 25fr", gap: 6 }}>
+        <img
+          src="/images/community/cafe-couple.jpg"
+          alt="A couple at a cafe — man in Modern Søber 'CLEAR > NUMB' black bomber jacket seated with back to camera, woman across from him resting her chin on her hand"
+          style={{ width: "100%", aspectRatio: "4/5", objectFit: "cover", display: "block" }}
+          loading="lazy"
+        />
+        <img
+          src="/images/community/gym-pair.jpg"
+          alt="A man and woman walking out of a gym smiling, both wearing Modern Søber apparel — black sleeveless hoodie and a sage cropped sweatshirt"
+          style={{ width: "100%", aspectRatio: "5/4", objectFit: "cover", display: "block" }}
+          loading="lazy"
+        />
       </div>
     </section>
   );
