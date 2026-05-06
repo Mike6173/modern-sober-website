@@ -272,15 +272,13 @@ const Story = ({ tweaks }) => {
           This isn't about restriction.<br/>It's about control.
         </p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</span>
-          <div style={{ width: 96, height: 96, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1.5px solid #5a4f47" }}>
-            <img
-              src="/images/founder/brandon-smith.jpg"
-              alt="Brandon Smith, founder of Modern Søber"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
-            />
-          </div>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 16 }}>Brandon Smith, Founder</p>
+        <div style={{ width: 96, height: 96, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #5a4f47" }}>
+          <img
+            src="/images/founder/brandon-smith.jpg"
+            alt="Brandon Smith, founder of Modern Søber"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+          />
         </div>
       </div>
       <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
