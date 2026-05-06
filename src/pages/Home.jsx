@@ -380,6 +380,7 @@ const HomeCommunity = ({ tweaks }) => {
 const FinalCTA = ({ tweaks }) => {
   const [h1, setH1] = useState(false);
   const [h2, setH2] = useState(false);
+  const [h3, setH3] = useState(false);
   const w   = useWindowWidth();
   const mob = w < 768;
   return (
@@ -391,10 +392,13 @@ const FinalCTA = ({ tweaks }) => {
         <Link to="/shop" style={{ textDecoration: 'none', display: mob ? 'block' : 'inline-block' }}>
           <button style={{ background: h1 ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "18px 48px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: mob ? '100%' : 'auto' }} onMouseEnter={() => setH1(true)} onMouseLeave={() => setH1(false)}>SHOP NOW</button>
         </Link>
+        <Link to="/pre-order" style={{ textDecoration: 'none', display: mob ? 'block' : 'inline-block' }}>
+          <button style={{ background: h2 ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "17px 40px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: mob ? '100%' : 'auto' }} onMouseEnter={() => setH2(true)} onMouseLeave={() => setH2(false)}>PRE-ORDER BOOK</button>
+        </Link>
         <a
           href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
-          style={{ background: h2 ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "17px 40px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48, textDecoration: 'none' }}
-          onMouseEnter={() => setH2(true)} onMouseLeave={() => setH2(false)}
+          style={{ background: h3 ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "17px 40px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48, textDecoration: 'none' }}
+          onMouseEnter={() => setH3(true)} onMouseLeave={() => setH3(false)}
         ><IconFacebook/> JOIN THE MOVEMENT</a>
       </div>
     </section>

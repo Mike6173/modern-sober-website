@@ -54,11 +54,11 @@ export default function Footer() {
           </div>
         ) : (
           /* Desktop: 3-column grid */
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', marginBottom: 32 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr', alignItems: 'center', marginBottom: 32 }}>
             <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 500, letterSpacing: '0.22em', lineHeight: 1.5, textTransform: 'uppercase' }}>
               MODERN<br/>SØBER
             </div>
-            <div style={{ display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
               {NAV_LINKS.map(({ label, to }) => (
                 <Link key={to} to={to} style={linkStyle}
                   onMouseEnter={(e) => e.target.style.color = '#1a1714'}

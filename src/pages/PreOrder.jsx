@@ -60,8 +60,8 @@ const HeroBanner = ({ mob }) => (
         loading="eager"
       />
     ) : (
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: mob ? 13 : 16, fontWeight: 400, letterSpacing: '0.35em', color: MUTED_3, textTransform: 'uppercase' }}>
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 24px' }}>
+        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: mob ? 13 : 16, fontWeight: 400, letterSpacing: '0.35em', color: MUTED_3, textTransform: 'uppercase', textAlign: 'center' }}>
           NOTHING WAS BROKEN — BRANDON SMITH
         </p>
       </div>
