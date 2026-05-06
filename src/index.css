@@ -1,6 +1,6 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
-body { background: #f5f0eb; color: #1a1714; font-family: 'DM Sans', sans-serif; }
+html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
+body { background: #f5f0eb; color: #1a1714; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #f5f0eb; }

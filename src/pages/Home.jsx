@@ -308,7 +308,7 @@ const Products = ({ tweaks }) => {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : tab ? "1fr 1fr" : "repeat(4, 1fr)", gap: mob ? 40 : 32 }}>
           {products.map(({ name, desc, imgPlaceholder, realImg, link }, i) => (
-            <div key={i} style={{ display: "flex", flexDirection: "column" }}>
+            <div key={i} style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
               <div style={{ aspectRatio: "4/5", overflow: "hidden", marginBottom: 20 }}>
                 {realImg
                   ? <img src={realImg} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} loading="lazy" />
