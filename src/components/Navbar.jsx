@@ -27,6 +27,7 @@ const SHOP_LINKS = [
 ];
 
 const SECONDARY_LINKS = [
+  { label: 'BOOK',      to: '/pre-order' },
   { label: 'OUR STORY', to: '/our-story' },
   { label: 'COMMUNITY', to: '/community' },
   { label: 'JOURNAL',   to: '/journal'   },

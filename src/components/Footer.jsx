@@ -3,8 +3,9 @@ import { Facebook, Instagram } from 'lucide-react';
 import { useWindowWidth } from '../hooks/useWindowWidth';
 
 const NAV_LINKS = [
-  { label: 'SHOP',      to: '/shop' },
-  { label: 'OUR STORY', to: '/our-story' },
+  { label: 'SHOP',          to: '/shop' },
+  { label: 'PRE-ORDER BOOK', to: '/pre-order' },
+  { label: 'OUR STORY',     to: '/our-story' },
   { label: 'COMMUNITY', to: '/community' },
   { label: 'JOURNAL',   to: '/journal' },
   { label: 'CONTACT',   to: '/contact' },
