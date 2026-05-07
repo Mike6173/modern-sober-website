@@ -275,7 +275,7 @@ const Story = ({ tweaks }) => {
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</p>
         {/* Headshot avatar — mobile only, pinned to bottom-right corner */}
         {mob && (
-          <div style={{ position: "absolute", bottom: 24, right: 24, width: 64, height: 64, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #5a4f47" }}>
+          <div style={{ position: "absolute", bottom: 24, right: 24, width: 128, height: 128, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #5a4f47" }}>
             <img
               src="/images/founder/brandon-smith.jpg"
               alt="Brandon Smith, founder of Modern Søber"
