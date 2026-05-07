@@ -255,9 +255,29 @@ const Story = ({ tweaks }) => {
   const w   = useWindowWidth();
   const mob = w < 768;
   return (
-    <section style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "55fr 45fr", minHeight: mob ? "auto" : 640 }}>
-      {/* Quote text column */}
-      <div style={{ position: "relative", background: "#1e1b18", padding: mob ? "56px 24px" : "100px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+    <section style={{ position: "relative", minHeight: mob ? 520 : 640, overflow: "hidden" }}>
+      {/* Full-bleed background image */}
+      <img
+        src="/images/founder/brandon-final.png"
+        alt="Brandon Smith, founder of Modern Søber"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+        loading="lazy"
+      />
+      {/* Dark gradient over left side so text is readable */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: mob
+          ? "linear-gradient(to bottom, rgba(30,27,24,0.82) 60%, rgba(30,27,24,0.4) 100%)"
+          : "linear-gradient(to right, rgba(30,27,24,0.90) 40%, rgba(30,27,24,0.5) 65%, transparent 85%)",
+      }} />
+      {/* Quote text — overlaid on left */}
+      <div style={{
+        position: "relative", zIndex: 1,
+        maxWidth: mob ? "100%" : "50%",
+        padding: mob ? "56px 24px" : "100px 80px",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        minHeight: mob ? 520 : 640,
+      }}>
         <div style={{ color: "#c8b89a", marginBottom: 28 }}><IconQuote/></div>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
           I lived in environments where excess was normal.<br/>Where success and escape looked the same.
@@ -273,7 +293,7 @@ const Story = ({ tweaks }) => {
         </p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</p>
-        {/* Headshot avatar — mobile only, pinned to bottom-right corner */}
+        {/* Headshot avatar — mobile only */}
         {mob && (
           <div style={{ position: "absolute", bottom: 24, right: 24, width: 128, height: 128, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #5a4f47" }}>
             <img
@@ -283,15 +303,6 @@ const Story = ({ tweaks }) => {
             />
           </div>
         )}
-      </div>
-      {/* Headshot column — full-bleed image */}
-      <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
-        <img
-          src="/images/founder/brandon-final.png"
-          alt="Brandon Smith, founder of Modern Søber"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
-          loading="lazy"
-        />
       </div>
     </section>
   );
