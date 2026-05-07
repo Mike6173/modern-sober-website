@@ -351,7 +351,7 @@ const HomeCommunity = ({ tweaks }) => {
   const w   = useWindowWidth();
   const mob = w < 768;
   return (
-    <section style={{ background: "#ede8e2", display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1.4fr" }}>
+    <section style={{ background: "#d9d3cb", display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1.4fr" }}>
       <div style={{ padding: mob ? "56px 24px" : "80px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <h2 style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: mob ? "clamp(28px, 8vw, 40px)" : "clamp(32px, 3.5vw, 52px)", fontWeight: 600, lineHeight: 1.05, color: "#1a1714", marginBottom: 24, textTransform: "uppercase", letterSpacing: "-0.01em" }}>
           THIS IS BIGGER<br/>THAN PRODUCT.
