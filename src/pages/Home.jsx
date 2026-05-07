@@ -285,8 +285,8 @@ const Story = ({ tweaks }) => {
       </div>
       <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
         <img
-          src={heroImg}
-          alt="Modern Søber founders on a rooftop overlooking the city"
+          src="/images/founder/brandon-final.png"
+          alt="Brandon Smith, founder of Modern Søber"
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           loading="lazy"
         />
