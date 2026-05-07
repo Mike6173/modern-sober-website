@@ -138,7 +138,7 @@ const Hero = ({ tweaks }) => {
             aria-hidden="true"
             style={{
               position: "absolute", inset: 0, width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center center",
+              objectFit: "contain", objectPosition: "center center",
               filter: "brightness(0.65) contrast(1.08) saturate(1.05) url(#sharpen)",
               imageRendering: "high-quality",
             }}
