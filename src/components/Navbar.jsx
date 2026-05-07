@@ -86,12 +86,10 @@ export default function Navbar({ bgColor = '#f5f0eb' }) {
       }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: navH }}>
 
-          {/* Logo — mobile only */}
-          {mobile && (
-            <NavLink to="/" style={{ textDecoration: 'none', flexShrink: 0 }} onClick={() => { setMenuOpen(false); setShopOpen(false); }}>
-              <img src="/images/logo/MSLOGONAV.png" alt="Modern Søber" style={{ height: 44, width: 'auto', display: 'block' }} />
-            </NavLink>
-          )}
+          {/* Logo */}
+          <NavLink to="/" style={{ textDecoration: 'none', flexShrink: 0 }} onClick={() => { setMenuOpen(false); setShopOpen(false); }}>
+            <img src="/images/logo/MSLOGONAV.png" alt="Modern Søber" style={{ height: mobile ? 44 : 56, width: 'auto', display: 'block' }} />
+          </NavLink>
 
           {mobile ? (
             <button

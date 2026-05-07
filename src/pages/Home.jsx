@@ -257,7 +257,7 @@ const Story = ({ tweaks }) => {
   const mob = w < 768;
   return (
     <section style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1fr", minHeight: mob ? "auto" : 520 }}>
-      <div style={{ background: "#1e1b18", padding: mob ? "56px 24px" : "80px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div style={{ position: "relative", background: "#1e1b18", padding: mob ? "56px 24px" : "80px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <div style={{ color: "#c8b89a", marginBottom: 28 }}><IconQuote/></div>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
           I lived in environments where excess was normal.<br/>Where success and escape looked the same.
@@ -272,14 +272,17 @@ const Story = ({ tweaks }) => {
           This isn't about restriction.<br/>It's about control.
         </p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 16 }}>Brandon Smith, Founder</p>
-        <div style={{ width: 64, height: 64, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #5a4f47" }}>
-          <img
-            src="/images/founder/brandon-smith.jpg"
-            alt="Brandon Smith, founder of Modern Søber"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
-          />
-        </div>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</p>
+        {/* Headshot avatar — mobile only, pinned to bottom-right corner */}
+        {mob && (
+          <div style={{ position: "absolute", bottom: 24, right: 24, width: 64, height: 64, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #5a4f47" }}>
+            <img
+              src="/images/founder/brandon-smith.jpg"
+              alt="Brandon Smith, founder of Modern Søber"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+            />
+          </div>
+        )}
       </div>
       <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
         <img
