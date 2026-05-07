@@ -284,33 +284,14 @@ const Story = ({ tweaks }) => {
           </div>
         )}
       </div>
-      {/* Headshot column — framed on desktop, full-bleed image on mobile */}
-      <div style={{ background: "#1e1b18", display: "flex", alignItems: "center", justifyContent: "center", padding: mob ? 0 : "60px 48px", minHeight: mob ? 260 : "auto", overflow: mob ? "hidden" : "visible", position: "relative" }}>
-        {mob ? (
-          <img
-            src="/images/founder/brandon-final.png"
-            alt="Brandon Smith, founder of Modern Søber"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            loading="lazy"
-          />
-        ) : (
-          <div style={{ width: "100%", maxWidth: 380 }}>
-            {/* Outer brown wood frame */}
-            <div style={{ background: "#7a4f30", padding: 20, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.6)" }}>
-              {/* Inner white matte */}
-              <div style={{ background: "#ffffff", padding: 16 }}>
-                <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
-                  <img
-                    src="/images/founder/brandon-final.png"
-                    alt="Brandon Smith, founder of Modern Søber"
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+      {/* Headshot column — full-bleed image */}
+      <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
+        <img
+          src="/images/founder/brandon-final.png"
+          alt="Brandon Smith, founder of Modern Søber"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+          loading="lazy"
+        />
       </div>
     </section>
   );
