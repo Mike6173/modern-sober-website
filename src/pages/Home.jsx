@@ -129,87 +129,86 @@ const Hero = ({ tweaks }) => {
         }} />
       )}
 
-      {/* Desktop background — hero image */}
+      {/* Desktop background — original hero image */}
       {!mob && (
-        <img
-          src="/images/founders/founders-rooftop.jpg"
-          alt=""
-          aria-hidden="true"
-          style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: "center 20%",
-            filter: "brightness(0.65) contrast(1.08) saturate(1.05) url(#sharpen)",
-            imageRendering: "high-quality",
-          }}
-        />
+        <>
+          <img
+            src="/images/founders/founders-rooftop.jpg"
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute", inset: 0, width: "100%", height: "100%",
+              objectFit: "cover", objectPosition: "center 20%",
+              filter: "brightness(0.65) contrast(1.08) saturate(1.05) url(#sharpen)",
+              imageRendering: "high-quality",
+            }}
+          />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to right, #f5f0eb 22%, rgba(245,240,235,0.75) 34%, rgba(245,240,235,0.15) 50%, transparent 62%)",
+          }} />
+        </>
       )}
 
-      {/* Text content — full-height centering wrapper */}
+      {/* Text content */}
       <div style={{
         position: "relative", zIndex: 1,
         display: "flex", flexDirection: "column",
         justifyContent: "center",
         alignItems: mob ? "center" : "flex-start",
+        textAlign: mob ? "center" : "left",
         minHeight: mob ? "75vh" : "100vh",
-        padding: mob ? "72px 24px 48px" : "80px 80px",
+        padding: mob ? "72px 24px 48px" : "120px 80px 80px 80px",
+        maxWidth: mob ? "100%" : 560,
+        margin: mob ? "0 auto" : "0",
       }}>
-        {/* Box wrapping text on desktop, plain on mobile */}
-        <div style={mob ? {
-          display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", maxWidth: "100%",
-        } : {
-          background: "#f5f0eb",
-          padding: "48px 52px",
-          maxWidth: 480,
-          boxShadow: "0 8px 48px rgba(0,0,0,0.22)",
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "clamp(18px, 5vw, 24px)" : "clamp(32px, 3.5vw, 48px)", fontWeight: 500, letterSpacing: "0.24em", color: "#1a1714", marginBottom: 16, textTransform: "uppercase" }}>
+          MODERN SØBER
+        </p>
+        <h1 style={{
+          fontFamily: `'${tweaks.headingFont}', serif`,
+          fontSize: mob ? "clamp(36px, 10vw, 52px)" : "clamp(52px, 6vw, 88px)",
+          fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.01em", color: "#1a1714",
+          marginBottom: 20, whiteSpace: "pre-line",
         }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "clamp(18px, 5vw, 24px)" : "clamp(20px, 2vw, 28px)", fontWeight: 500, letterSpacing: "0.24em", color: "#1a1714", marginBottom: 16, textTransform: "uppercase" }}>
-            MODERN SØBER
-          </p>
-          <h1 style={{
-            fontFamily: `'${tweaks.headingFont}', serif`,
-            fontSize: mob ? "clamp(36px, 10vw, 52px)" : "clamp(44px, 5vw, 72px)",
-            fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.01em", color: "#1a1714",
-            marginBottom: 20, whiteSpace: "pre-line",
-          }}>
-            {tweaks.heroHeadline}
-          </h1>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.75, color: "#4a4440", marginBottom: 28, whiteSpace: "pre-line", maxWidth: mob ? 300 : 360 }}>
-            {tweaks.heroSub}
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, width: mob ? "100%" : 280, maxWidth: 320, marginBottom: 28 }}>
-            <Link to="/shop" style={{ textDecoration: 'none' }}>
-              <button
-                style={{ background: hoverPrimary ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "14px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: "100%" }}
-                onMouseEnter={() => setHoverPrimary(true)} onMouseLeave={() => setHoverPrimary(false)}
-              >{tweaks.ctaPrimary}</button>
-            </Link>
-            <Link to="/pre-order" style={{ textDecoration: 'none' }}>
-              <button
-                style={{ background: hoverBook ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "13px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: "100%" }}
-                onMouseEnter={() => setHoverBook(true)} onMouseLeave={() => setHoverBook(false)}
-              >PRE-ORDER BOOK</button>
-            </Link>
-            <a
-              href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
-              style={{ background: hoverSecondary ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "13px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48, textDecoration: 'none' }}
-              onMouseEnter={() => setHoverSecondary(true)} onMouseLeave={() => setHoverSecondary(false)}
-            ><IconFacebook/> {tweaks.ctaSecondary}</a>
-          </div>
-          {tweaks.showSocialProof && (
-            <div style={{ display: "flex", alignItems: "center", justifyContent: mob ? "center" : "flex-start", gap: 12 }}>
-              <div style={{ display: "flex" }}>
-                {avatarFaces.map((src, i) => (
-                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: avatarColors[i], border: "2px solid #f5f0eb", marginLeft: i > 0 ? -10 : 0, overflow: "hidden", flexShrink: 0 }}>
-                    <img src={src} alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                  </div>
-                ))}
-              </div>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#6a6058", lineHeight: 1.5 }}>
-                Thousands are already<br/>choosing clarity.
-              </p>
-            </div>
-          )}
+          {tweaks.heroHeadline}
+        </h1>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.75, color: "#4a4440", marginBottom: 28, whiteSpace: "pre-line", maxWidth: mob ? 300 : 360 }}>
+          {tweaks.heroSub}
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, width: mob ? "100%" : 280, maxWidth: 320, marginBottom: 28 }}>
+          <Link to="/shop" style={{ textDecoration: 'none' }}>
+            <button
+              style={{ background: hoverPrimary ? "#2e2a26" : "#1a1714", color: "#f5f0eb", border: "none", padding: "14px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: "100%" }}
+              onMouseEnter={() => setHoverPrimary(true)} onMouseLeave={() => setHoverPrimary(false)}
+            >{tweaks.ctaPrimary}</button>
+          </Link>
+          <Link to="/pre-order" style={{ textDecoration: 'none' }}>
+            <button
+              style={{ background: hoverBook ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "13px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", minHeight: 48, width: "100%" }}
+              onMouseEnter={() => setHoverBook(true)} onMouseLeave={() => setHoverBook(false)}
+            >PRE-ORDER BOOK</button>
+          </Link>
+          <a
+            href="https://www.facebook.com/Modernsober/" target="_blank" rel="noopener noreferrer"
+            style={{ background: hoverSecondary ? "rgba(26,23,20,0.05)" : "transparent", color: "#1a1714", border: "1.5px solid #1a1714", padding: "13px 32px", fontFamily: "'DM Sans', sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", cursor: "pointer", transition: "background 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, minHeight: 48, textDecoration: 'none' }}
+            onMouseEnter={() => setHoverSecondary(true)} onMouseLeave={() => setHoverSecondary(false)}
+          ><IconFacebook/> {tweaks.ctaSecondary}</a>
         </div>
+        {tweaks.showSocialProof && (
+          <div style={{ display: "flex", alignItems: "center", justifyContent: mob ? "center" : "flex-start", gap: 12 }}>
+            <div style={{ display: "flex" }}>
+              {avatarFaces.map((src, i) => (
+                <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: avatarColors[i], border: "2px solid #f5f0eb", marginLeft: i > 0 ? -10 : 0, overflow: "hidden", flexShrink: 0 }}>
+                  <img src={src} alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                </div>
+              ))}
+            </div>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#6a6058", lineHeight: 1.5, textAlign: mob ? "left" : "left" }}>
+              Thousands are already<br/>choosing clarity.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
