@@ -284,15 +284,17 @@ const Story = ({ tweaks }) => {
           </div>
         )}
       </div>
-      {/* Headshot column — full-bleed image */}
-      <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
-        <img
-          src="/images/founder/brandon-final.png"
-          alt="Brandon Smith, founder of Modern Søber"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
-          loading="lazy"
-        />
-      </div>
+      {/* Headshot column — full-bleed image, desktop only */}
+      {!mob && (
+        <div style={{ overflow: "hidden", position: "relative" }}>
+          <img
+            src="/images/founder/brandon-final.png"
+            alt="Brandon Smith, founder of Modern Søber"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+            loading="lazy"
+          />
+        </div>
+      )}
     </section>
   );
 };
