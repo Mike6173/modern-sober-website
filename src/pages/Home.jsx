@@ -255,8 +255,9 @@ const Story = ({ tweaks }) => {
   const w   = useWindowWidth();
   const mob = w < 768;
   return (
-    <section style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1fr", minHeight: mob ? "auto" : 520 }}>
-      <div style={{ position: "relative", background: "#1e1b18", padding: mob ? "56px 24px" : "80px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+    <section style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "55fr 45fr", minHeight: mob ? "auto" : 640 }}>
+      {/* Quote text column */}
+      <div style={{ position: "relative", background: "#1e1b18", padding: mob ? "56px 24px" : "100px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <div style={{ color: "#c8b89a", marginBottom: 28 }}><IconQuote/></div>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
           I lived in environments where excess was normal.<br/>Where success and escape looked the same.
@@ -283,13 +284,33 @@ const Story = ({ tweaks }) => {
           </div>
         )}
       </div>
-      <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
-        <img
-          src="/images/founder/brandon-final.png"
-          alt="Brandon Smith, founder of Modern Søber"
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          loading="lazy"
-        />
+      {/* Headshot column — framed on desktop, full-bleed image on mobile */}
+      <div style={{ background: "#1e1b18", display: "flex", alignItems: "center", justifyContent: "center", padding: mob ? 0 : "60px 48px", minHeight: mob ? 260 : "auto", overflow: mob ? "hidden" : "visible", position: "relative" }}>
+        {mob ? (
+          <img
+            src="/images/founder/brandon-final.png"
+            alt="Brandon Smith, founder of Modern Søber"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            loading="lazy"
+          />
+        ) : (
+          <div style={{ width: "100%", maxWidth: 380 }}>
+            {/* Outer brown wood frame */}
+            <div style={{ background: "#7a4f30", padding: 20, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.6)" }}>
+              {/* Inner white matte */}
+              <div style={{ background: "#ffffff", padding: 16 }}>
+                <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
+                  <img
+                    src="/images/founder/brandon-final.png"
+                    alt="Brandon Smith, founder of Modern Søber"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
