@@ -259,20 +259,20 @@ const Story = ({ tweaks }) => {
       {/* Quote text column */}
       <div style={{ position: "relative", background: "#1e1b18", padding: mob ? "56px 24px" : "100px 80px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <div style={{ color: "#c8b89a", marginBottom: 28 }}><IconQuote/></div>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "14px" : "18px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
           I lived in environments where excess was normal.<br/>Where success and escape looked the same.
         </p>
-        <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "20px", fontWeight: 600, color: "#f0ebe4", marginBottom: 24, lineHeight: 1.4 }}>
+        <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: mob ? "20px" : "28px", fontWeight: 600, color: "#f0ebe4", marginBottom: 24, lineHeight: 1.4 }}>
           Everything worked — until it didn't.
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "14px" : "18px", fontWeight: 300, lineHeight: 1.9, color: "#b5a99a", marginBottom: 28 }}>
           Clarity became the edge.<br/>Discipline became the advantage.
         </p>
-        <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: "20px", fontWeight: 600, color: "#f0ebe4", marginBottom: 36, lineHeight: 1.4 }}>
+        <p style={{ fontFamily: `'${tweaks.headingFont}', serif`, fontSize: mob ? "20px" : "28px", fontWeight: 600, color: "#f0ebe4", marginBottom: 36, lineHeight: 1.4 }}>
           This isn't about restriction.<br/>It's about control.
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</p>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "12px" : "14px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em", marginBottom: 6 }}>—</p>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: mob ? "12px" : "14px", fontWeight: 300, color: "#8a7d72", letterSpacing: "0.05em" }}>Brandon Smith, Founder</p>
         {/* Headshot avatar — mobile only, pinned to bottom-right corner */}
         {mob && (
           <div style={{ position: "absolute", bottom: 24, right: 24, width: 128, height: 128, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #5a4f47" }}>
