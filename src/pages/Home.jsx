@@ -426,9 +426,9 @@ export default function Home() {
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ order: 1 }}><Hero tweaks={tweaks}/></div>
         <div style={{ order: mob ? 2 : 2 }}><ValueProps tweaks={tweaks}/></div>
-        <div style={{ order: mob ? 4 : 3 }}><Story tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 4 : 5 }}><Story tweaks={tweaks}/></div>
         <div style={{ order: mob ? 3 : 4 }}><Products tweaks={tweaks}/></div>
-        <div style={{ order: mob ? 5 : 5 }}><HomeCommunity tweaks={tweaks}/></div>
+        <div style={{ order: mob ? 5 : 3 }}><HomeCommunity tweaks={tweaks}/></div>
         <div style={{ order: mob ? 6 : 6 }}><FinalCTA tweaks={tweaks}/></div>
       </div>
       <Footer/>
