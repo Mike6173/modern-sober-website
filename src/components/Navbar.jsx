@@ -65,12 +65,12 @@ export default function Navbar({ bgColor = '#f5f0eb' }) {
 
   const secLinkStyle = ({ isActive }) => ({
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: '11px',
+    fontSize: '13px',
     fontWeight: 500,
     letterSpacing: '0.14em',
-    color: '#6a6058',
+    color: '#1a1714',
     textDecoration: 'none',
-    borderBottom: isActive ? '1px solid #6a6058' : '1px solid transparent',
+    borderBottom: isActive ? '1px solid #1a1714' : '1px solid transparent',
     paddingBottom: '3px',
     transition: 'border-color 0.2s',
   });
@@ -113,7 +113,7 @@ export default function Navbar({ bgColor = '#f5f0eb' }) {
                 >
                   <button style={{
                     fontFamily: "'DM Sans', sans-serif",
-                    fontSize: '11px',
+                    fontSize: '13px',
                     fontWeight: 500,
                     letterSpacing: '0.14em',
                     color: '#1a1714',
