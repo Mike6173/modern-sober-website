@@ -133,7 +133,7 @@ const Hero = ({ tweaks }) => {
       {!mob && (
         <>
           <img
-            src={heroImg}
+            src="/images/founders/founders-rooftop.jpg"
             alt=""
             aria-hidden="true"
             style={{
@@ -286,7 +286,7 @@ const Story = ({ tweaks }) => {
       </div>
       <div style={{ overflow: "hidden", position: "relative", minHeight: mob ? 260 : "auto" }}>
         <img
-          src="/images/founders/founders-rooftop.jpg"
+          src={heroImg}
           alt="Modern Søber founders on a rooftop overlooking the city"
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           loading="lazy"
