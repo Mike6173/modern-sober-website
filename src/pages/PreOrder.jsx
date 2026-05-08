@@ -43,10 +43,10 @@ const SectionEyebrow = ({ label, light = false }) => (
 );
 
 // ── Hero Banner ─────────────────────────────────────────────────────────────
-const HeroBanner = ({ mob }) => (
+const HeroBanner = ({ mob, tab }) => (
   <div style={{
     width: '100%',
-    height: mob ? 220 : 480,
+    height: mob ? 220 : tab ? 300 : 480,
     background: DARK_PANEL,
     position: 'relative',
     overflow: 'hidden',
@@ -407,7 +407,7 @@ export default function PreOrder() {
     <div style={{ background: CREAM, minHeight: '100vh' }}>
       <Navbar bgColor={CREAM} />
 
-      <HeroBanner mob={mob} />
+      <HeroBanner mob={mob} tab={tab} />
 
       <BookHero mob={mob} />
 
